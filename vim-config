@@ -1,0 +1,302 @@
+"
+" Startup Options
+"
+
+" Call Pathogen
+" <https://github.com/tpope/vim-pathogen>
+call pathogen#infect()
+Helptags
+
+
+"
+" Appearance
+"
+
+" GUI font
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'guifont'>
+set guifont=Monaco\ 10
+
+" Options for GUI
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'guioptions'>
+" a     Autoselect: Visually highlighted text is available for pasting into
+"       other applications as well as into Vim itself.
+" e     Add tab pages when indicated with 'showtabline'.
+" g     Grey menu items: Make menu items that are not active grey.
+" i     Use a Vim icon.
+" m     Menu bar is present.
+" r     Right-hand scrollbar is always present.
+" L     Left-hand scrollbar is present when there is a vertically split window.
+" t     Include tearoff menu items.
+" use += instead of = http://stackoverflow.com/questions/846879/remove-the-toolbar-in-gvim/846893#comment20059534_846893
+set guioptions=aegimt
+
+" Show tabline
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'showtabline'>
+set showtabline=2
+
+" Show the line and column number of the cursor position, separated by a comma.
+set ruler
+
+" Set transparency for MacVim
+if has("gui_macvim")
+    set transparency=15
+endif
+
+
+"
+" Buffer Management
+"
+
+" buffer becomes hidden when it is |abandon|ed
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'hidden'>
+set hidden
+
+
+"
+" Editor Options
+"
+
+" Copy indent from current line when starting a new line
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'autoindent'>
+set autoindent
+
+" Don't autosave the file
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'autowrite'>
+set noautowrite
+
+" like 'autowrite', but cover more commands
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'autowriteall'>
+set noautowriteall
+
+" Don't make a backup before overwriting a file
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'backup'>
+set nobackup
+
+" Setting dark background
+" http://vimdoc.sourceforge.net/htmldoc/options.html#'background'
+set background=dark
+
+" better backspacing
+" http://vimdoc.sourceforge.net/htmldoc/options.html
+set backspace=indent,eol,start
+
+" Which directory to use for the file browser
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'browsedir'>
+set browsedir=buffer
+
+" color character after from 85 chars onwards
+" http://stevelosh.com/blog/2010/09/coming-home-to-vim/#important-vimrc-lines
+set colorcolumn=85
+
+" Load color scheme
+" <http://vimdoc.sourceforge.net/htmldoc/syntax.html#:colorscheme>
+colorscheme base16-atelierforest
+
+" Use the appropriate number of spaces to insert a <Tab>
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'expandtab'>
+set expandtab
+
+" Newline format
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'fileformat'>
+" unix: <NL>
+set fileformat=unix
+
+" switch on incremental search
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'incsearch'>
+set incsearch
+
+" ignore case in search pattern
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'ignorecase'>
+set ignorecase
+
+" Print the line number in front of each line.
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'number'>
+set number
+
+" Number of spaces to use for each step of (auto)indent
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'shiftwidth'>
+set shiftwidth=4
+
+" Override the 'ignorecase' option if the search pattern contains upper case
+" characters
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'smartcase'>
+set smartcase
+
+" Do smart autoindenting when starting a new line.
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'smartindent'>
+set smartindent
+
+" a <Tab> in front of a line inserts blanks according to 'shiftwidth'
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'smarttab'>
+set smarttab
+
+" Number of spaces that a <Tab> counts for while performing editing operations
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'softtabstop'>
+set softtabstop=4
+
+" Enable spell-checking
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'spell'>
+set spell
+
+" spellchecking will be done for these languages
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'spelllang'>
+set spelllang=en
+
+" split new window to the right
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'splitright'>
+set splitright
+
+" faster terminal connection
+" http://vimdoc.sourceforge.net/htmldoc/options.html#'ttyfast'
+set ttyfast
+
+" switch syntax highlighting on
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'syntax'>
+syntax enable
+syntax on
+
+" Number of spaces that a <Tab> in the file counts for
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'tabstop'>
+set tabstop=4
+
+" set autocompletion menu for commands
+" http://vimdoc.sourceforge.net/htmldoc/options.html#'wildmenu'
+set wildmenu
+
+" Auto-completion mode
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'wildmode'>
+" list:longest: When more than one match, list all matches and complete till
+" longest common string.
+set wildmode=list:longest
+
+" Allows writing to any file with no need for '!' override.
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'writeany'>
+set nowriteany
+
+" lines longer than the width of the window will wrap and displaying continues
+" on the next line.
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'wrap'>
+set nowrap
+
+" Autoresize the splits
+" http://stackoverflow.com/questions/12087537/maintaining-split-window-proportions-when-resizing-window-frame-in-gvim
+:au VimResized * wincmd =
+
+
+"
+" Filetype Plugins
+" <http://vimdoc.sourceforge.net/htmldoc/filetype.html#filetypes>
+"
+
+" when a file is edited its plugin file is loaded
+filetype plugin on
+
+" when a file is edited its indent file is loaded
+filetype indent on
+
+" automatically use system clipboard for cut and paste
+" http://stackoverflow.com/questions/3961859/how-to-copy-to-clipboard-using-vim
+set clipboard=unnamedplus
+
+
+"
+" Advanced Settings
+"
+
+" Enables the reading of .vimrc, .exrc and .gvimrc in the current directory.
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'exrc'>
+set exrc
+
+" When on, ':autocmd', shell and write commands are not allowed in '.vimrc' and
+" '.exrc' in the current directory
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'secure'>
+set secure
+
+
+"
+" Advanced Scripts & Plugin settings
+"
+
+" for leader key
+" "http://stackoverflow.com/questions/1764263/what-is-the-leader-in-a-vimrc-file/8160809#8160809
+set showcmd
+
+" Highlight space character
+:au InsertEnter * match Todo /\s\+\%#\@<!$/
+:au InsertLeave * match Todo /\s\+$/
+
+" File type specific settings
+" <http://superuser.com/questions/177837/different-vim-indentation-settings-for-specific-file-type>
+if has("autocmd")
+    " auto trim trailing whitespace
+    " <http://vim.wikia.com/wiki/Remove_unwanted_spaces>
+    autocmd BufWritePre * :%s/\s\s\+$//e
+
+    " Drupal *.module and *.install files.
+    augroup drupal
+        autocmd BufRead,BufNewFile *.module set filetype=php
+        autocmd BufRead,BufNewFile *.install set filetype=php
+        autocmd BufRead,BufNewFile *.test set filetype=php
+
+        autocmd BufRead,BufNewFile *.inc set tabstop=2 shiftwidth=2
+
+        autocmd BufRead,BufNewFile *.install set tabstop=2 shiftwidth=2
+
+        autocmd BufRead,BufNewFile *.module set tabstop=2 shiftwidth=2
+    augroup END
+
+    autocmd FileType json set foldmethod=syntax
+
+    autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+endif
+
+"
+" latex-suite
+"
+
+" Default flavor for .tex files
+" <http://vim-latex.sourceforge.net/documentation/latex-suite/recommended-settings.html>
+let g:tex_flavor='latex'
+
+" TIP: if you write your \label's as \label{fig:something}, then if you
+" type in \ref{fig: and press <C-n> you will automatically cycle through
+" all the figure labels. Very useful!
+set iskeyword+=:
+
+" remove whitespace
+" <http://vim.wikia.com/wiki/Remove_unwanted_spaces>
+" help 40.2
+nnoremap <leader>ks normal!:%s/\s\+$<CR>
+
+" new tab page
+nnoremap <leader>t <ESC>:tabnew<CR>
+
+" Flying is faster than cycling.
+" https://plus.google.com/104286962752255423480/posts/bmHQXnKeimj
+nnoremap <leader>l :ls<CR>:b<space>
+
+"
+" CtrlP mappings
+"
+nnoremap <leader>cp <ESC>:CtrlPMixed<CR><CR>
+
+"
+" Fuzzy Finder mappings
+"
+
+" Open file
+" nnoremap <leader>ff <ESC>:FufFile <C-r>=expand('%:~:.')[:-1-len(expand('%:~:.:t'))]<CR><CR>
+
+" Switch Buffer
+" nnoremap <leader>fb <ESC>:FufBuffer <C-r>=expand('%:~:.')[:-1-len(expand('%:~:.:t'))]<CR><CR>
+
+"
+" Supertab
+"
+
+" attempting to use the text preceding the cursor to decide which type of
+" completion to attempt
+let g:SuperTabDefaultCompletionType = "context"
+
+" fall back to a secondary default completion
+let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
