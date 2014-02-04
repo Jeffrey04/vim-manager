@@ -1,0 +1,30 @@
+{
+    "plugins": {
+        "filetype-clojure": "https://bitbucket.org/kotarak/vimclojure",
+        "filetype-javascript": "git://github.com/pangloss/vim-javascript.git",
+        "filetype-json": "git://github.com/rogerz/vim-json.git",
+        "filetype-latex": "git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex",
+        "filetype-lisp": "https://bitbucket.org/kovisoft/slimv",
+        "filetype-qml": "git://github.com/peterhoeg/vim-qml.git",
+        "indent-php": "git://github.com/2072/PHP-Indenting-for-VIm.git",
+        "omnicomplete-php": "git://github.com/shawncplus/phpcomplete.vim.git",
+        "plugin-autoclose": "git://github.com/Townk/vim-autoclose.git",
+        "plugin-ctrlp": "git://github.com/kien/ctrlp.vim",
+        "plugin-fencview": "git://github.com/mbbill/fencview.git",
+        "plugin-l9": "https://bitbucket.org/ns9tks/vim-l9",
+        "plugin-niji": "git://github.com/amdt/vim-niji.git",
+        "plugin-rainbow-csv": "git://github.com/vim-scripts/rainbow_csv.vim.git",
+        "plugin-supertab": "git://github.com/ervandew/supertab.git",
+        "plugin-texshop": "",
+        "syntax-php": "git://github.com/StanAngeloff/php.vim.git",
+        "theme-atelier": "",
+        "theme-blackboard": "",
+        "theme-darkmonokai": "",
+        "theme-irblack": "",
+        "theme-molokai": "",
+        "theme-monokai": "",
+        "theme-solarized": "git://github.com/altercation/vim-colors-solarized.git",
+        "theme-vibrantink": "",
+        "theme-vividchalk": ""
+    }
+}
