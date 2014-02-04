@@ -24,7 +24,7 @@ echo TARGET_DEFAULT; ?>: <?php echo pathogen_get_target(TARGET_INSTALL); ?> <?ph
     if [ -d <?php echo DIR_HOME; ?>/.vim/.hg ]; then hg update null -R <?php echo DIR_HOME; ?>/.vim && rm -rf <?php echo DIR_HOME; ?>/.vim/.hg; fi
     rm -rf <?php echo DIR_HOME; ?>/.vim/bundle
 
-<?php echo pathogen_get_target(TARGET_INSTALL); ?>: <?php echo pathogen_get_target(TARGET_CLEAN) . PHP_EOL; ?>
+<?php echo pathogen_get_target(TARGET_INSTALL); ?>: <?php echo pathogen_get_target(TARGET_CLEAN); ?> .vim .vimrc
     hg clone <?php echo pathogen_get_repo($config); ?> <?php echo DIR_HOME; ?>/.vim
     ln -s <?php echo DIR_BUNDLE; ?> <?php echo DIR_HOME; ?>/.vim/bundle
 
