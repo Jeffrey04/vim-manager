@@ -29,7 +29,7 @@ call_user_func(
                 bundle_list_target(bundle_list($config), TARGET_CLEAN)),
             array(
                 array(
-                    'if [ -d %s/.vim/.hg ]; then hg update null -R %s/.vim && rm -rf %s/.vim/.hg; fi',
+                    'if [ -d %s/.vim/.hg ]; then hg update -y null -R %s/.vim && rm -rf %s/.vim/.hg; fi',
                     DIR_HOME,
                     DIR_HOME,
                     DIR_HOME),
@@ -43,7 +43,7 @@ call_user_func(
                 array(pathogen_get_target(TARGET_CLEAN), '.vim', '.vimrc')),
             array(
                 array(
-                    'hg clone %s %s/.vim',
+                    'hg clone -y %s %s/.vim',
                     pathogen_get_repo($config),
                     DIR_HOME),
                 array(
@@ -54,7 +54,7 @@ call_user_func(
         echo call_user_func(call_user_func(
             target_construct(pathogen_get_target(TARGET_UPDATE)),
             array(
-                array('hg pull -u -R %s/.vim', DIR_HOME)
+                array('hg pull -y -u -R %s/.vim', DIR_HOME)
             )));
 
         array_walk(
@@ -68,13 +68,13 @@ call_user_func(
                     target_construct(
                         bundle_get_target($bundle, TARGET_INSTALL),
                         array(bundle_get_target($bundle, TARGET_CLEAN))),
-                    array(array('hg clone %s %s',
+                    array(array('hg clone -y %s %s',
                     bundle_get_repo($config, $bundle),
                     bundle_get_path(DIR_BUNDLE, $bundle)))));
 
                 echo call_user_func(call_user_func(
                     target_construct(bundle_get_target($bundle, TARGET_UPDATE)),
-                    array(array('hg pull -u -R %s', bundle_get_path(DIR_BUNDLE, $bundle)))));
+                    array(array('hg pull -y -u -R %s', bundle_get_path(DIR_BUNDLE, $bundle)))));
             }
         );
 
