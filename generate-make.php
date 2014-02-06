@@ -16,99 +16,98 @@ define('TARGET_CLEAN', 'clean');
 call_user_func(
     function($config) {
 
-    echo call_user_func(call_user_func(
-        target_construct(
-            TARGET_DEFAULT,
-            array_merge(
-                array(pathogen_get_target(TARGET_INSTALL)),
-                bundle_list_target(bundle_list($config), TARGET_INSTALL)))));
+        echo call_user_func(call_user_func(
+            target_construct(
+                TARGET_DEFAULT,
+                array_merge(
+                    array(pathogen_get_target(TARGET_INSTALL)),
+                    bundle_list_target(bundle_list($config), TARGET_INSTALL)))));
 
-    echo call_user_func(call_user_func(
-        target_construct(
-            pathogen_get_target(TARGET_CLEAN),
-            bundle_list_target(bundle_list($config), TARGET_CLEAN)),
-        array(
+        echo call_user_func(call_user_func(
+            target_construct(
+                pathogen_get_target(TARGET_CLEAN),
+                bundle_list_target(bundle_list($config), TARGET_CLEAN)),
             array(
-                'if [ -d %s/.vim/.hg ]; then hg update null -R %s/.vim && rm -rf %s/.vim/.hg; fi',
-                DIR_HOME,
-                DIR_HOME,
-                DIR_HOME),
-            array(
-                'rm -rf %s/.vim/bundle',
-                DIR_HOME))));
+                array(
+                    'if [ -d %s/.vim/.hg ]; then hg update null -R %s/.vim && rm -rf %s/.vim/.hg; fi',
+                    DIR_HOME,
+                    DIR_HOME,
+                    DIR_HOME),
+                array(
+                    'rm -rf %s/.vim/bundle',
+                    DIR_HOME))));
 
-    echo call_user_func(call_user_func(
-        target_construct(
-            pathogen_get_target(TARGET_INSTALL),
-            array(pathogen_get_target(TARGET_CLEAN), '.vim', '.vimrc')),
-        array(
+        echo call_user_func(call_user_func(
+            target_construct(
+                pathogen_get_target(TARGET_INSTALL),
+                array(pathogen_get_target(TARGET_CLEAN), '.vim', '.vimrc')),
             array(
-                'hg clone %s %s/.vim',
-                pathogen_get_repo($config),
-                DIR_HOME),
+                array(
+                    'hg clone %s %s/.vim',
+                    pathogen_get_repo($config),
+                    DIR_HOME),
+                array(
+                    'ln -s %s %s/.vim/bundle',
+                    DIR_BUNDLE,
+                    DIR_HOME))));
+
+        echo call_user_func(call_user_func(
+            target_construct(pathogen_get_target(TARGET_UPDATE)),
             array(
-                'ln -s %s %s/.vim/bundle',
-                DIR_BUNDLE,
-                DIR_HOME))));
-    echo call_user_func(call_user_func(
-        target_construct(pathogen_get_target(TARGET_UPDATE)),
-        array(
-            array('hg pull -u -R %s/.vim', DIR_HOME)
-        )));
+                array('hg pull -u -R %s/.vim', DIR_HOME)
+            )));
 
         array_walk(
             bundle_list($config),
             function($bundle) use($config) {
+                echo call_user_func(call_user_func(
+                    target_construct(bundle_get_target($bundle, TARGET_CLEAN)),
+                    array(array('rm -rf %s', bundle_get_path(DIR_BUNDLE, $bundle)))));
 
-    echo call_user_func(call_user_func(
-        target_construct(bundle_get_target($bundle, TARGET_CLEAN)),
-        array(array('rm -rf %s', bundle_get_path(DIR_BUNDLE, $bundle)))));
+                echo call_user_func(call_user_func(
+                    target_construct(
+                        bundle_get_target($bundle, TARGET_INSTALL),
+                        array(bundle_get_target($bundle, TARGET_CLEAN))),
+                    array(array('hg clone %s %s',
+                    bundle_get_repo($config, $bundle),
+                    bundle_get_path(DIR_BUNDLE, $bundle)))));
 
-    echo call_user_func(call_user_func(
-        target_construct(
-            bundle_get_target($bundle, TARGET_INSTALL),
-            array(bundle_get_target($bundle, TARGET_CLEAN))),
-        array(array('hg clone %s %s',
-            bundle_get_repo($config, $bundle),
-            bundle_get_path(DIR_BUNDLE, $bundle)))));
-
-    echo call_user_func(call_user_func(
-        target_construct(bundle_get_target($bundle, TARGET_UPDATE)),
-        array(array('hg pull -u -R %s', bundle_get_path(DIR_BUNDLE, $bundle)))));
-
+                echo call_user_func(call_user_func(
+                    target_construct(bundle_get_target($bundle, TARGET_UPDATE)),
+                    array(array('hg pull -u -R %s', bundle_get_path(DIR_BUNDLE, $bundle)))));
             }
         );
 
-    echo call_user_func(call_user_func(
-        target_construct(
-            TARGET_CLEAN,
-            array(
-                pathogen_get_target(TARGET_CLEAN),
-                TARGET_CLEAN . '-vim',
-                TARGET_CLEAN . '-vimrc'))));
+        echo call_user_func(call_user_func(
+            target_construct(
+                TARGET_CLEAN,
+                array(
+                    pathogen_get_target(TARGET_CLEAN),
+                    TARGET_CLEAN . '-vim',
+                    TARGET_CLEAN . '-vimrc'))));
 
-    echo call_user_func(call_user_func(
-        target_construct(TARGET_CLEAN . '-vim'),
-        array(array('rm -rf %s/.vim', DIR_HOME))));
+        echo call_user_func(call_user_func(
+            target_construct(TARGET_CLEAN . '-vim'),
+            array(array('rm -rf %s/.vim', DIR_HOME))));
 
-    echo call_user_func(call_user_func(
-        target_construct(TARGET_CLEAN . '-vimrc'),
-        array(array('rm -rf %s/.vimrc', DIR_HOME))));
+        echo call_user_func(call_user_func(
+            target_construct(TARGET_CLEAN . '-vimrc'),
+            array(array('rm -rf %s/.vimrc', DIR_HOME))));
 
-    echo call_user_func(call_user_func(
-        target_construct(
-            TARGET_UPDATE,
-            array_merge(
-                array(pathogen_get_target(TARGET_UPDATE)),
-                bundle_list_target(bundle_list($config), TARGET_UPDATE)))));
+        echo call_user_func(call_user_func(
+            target_construct(
+                TARGET_UPDATE,
+                array_merge(
+                    array(pathogen_get_target(TARGET_UPDATE)),
+                    bundle_list_target(bundle_list($config), TARGET_UPDATE)))));
 
-    echo call_user_func(call_user_func(
-        target_construct('.vim'),
-        array(array('mkdir %s/.vim', DIR_HOME))));
+        echo call_user_func(call_user_func(
+            target_construct('.vim'),
+            array(array('mkdir %s/.vim', DIR_HOME))));
 
-    echo call_user_func(call_user_func(
-        target_construct('.vimrc'),
-        array(array('ln -s %s/vim-config %s/.vimrc', DIR_ROOT, DIR_HOME))));
+        echo call_user_func(call_user_func(
+            target_construct('.vimrc'),
+            array(array('ln -s %s/vim-config %s/.vimrc', DIR_ROOT, DIR_HOME))));
 
     },
     config_init(realpath($_SERVER['argv'][1]))
@@ -175,8 +174,7 @@ function config_init($config_path) {
                 },
                 $array);
         },
-        json_decode(file_get_contents($config_path), TRUE)
-    );
+        json_decode(file_get_contents($config_path), TRUE));
 }
 
 function pathogen_get_target($target) {
@@ -206,7 +204,8 @@ function target_construct($target_name, Array $dependencies = array()) {
                                     $command
                                 ));
                         },
-                        $command_list)))) . PHP_EOL . PHP_EOL;
+                        $command_list))))
+                . PHP_EOL . PHP_EOL;
         };
     };
 }
