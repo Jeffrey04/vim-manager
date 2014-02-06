@@ -139,7 +139,7 @@ function bundle_list_target($bundle_list, $target) {
 
 function command_prepend_target($target) {
     return sprintf(
-        "\t%s | sed 's/.*/\[%s\] &/'%s",
+        "\t@%s | sed 's/.*/%s: &/'%s",
         vsprintf(
             func_get_arg(1),
             array_slice(func_get_args(), 2)),
@@ -189,10 +189,11 @@ function target_construct($target_name, Array $dependencies = array()) {
     return function(Array $command_list = array()) use($target_name, $dependencies) {
         return function() use($command_list, $target_name, $dependencies) {
             return trim(sprintf(
-                '%s: %s%s%s',
+                '%s: %s%s%s%s%s',
                 $target_name,
                 implode(' ', $dependencies),
                 PHP_EOL,
+                command_prepend_target($target_name, 'echo BEGIN'),
                 implode(
                     NULL,
                     array_map(
@@ -204,7 +205,8 @@ function target_construct($target_name, Array $dependencies = array()) {
                                     $command
                                 ));
                         },
-                        $command_list))))
+                            $command_list)),
+                command_prepend_target($target_name, 'echo END')))
                 . PHP_EOL . PHP_EOL;
         };
     };
