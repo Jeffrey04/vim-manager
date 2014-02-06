@@ -77,9 +77,13 @@ call_user_func(
             }
         );
 
-echo TARGET_CLEAN; ?>: <?php echo pathogen_get_target(TARGET_CLEAN); ?> <?php echo TARGET_CLEAN; ?>-vim <?php echo TARGET_CLEAN; ?>-vimrc
+    echo call_user_func(call_user_func(
+        target_construct(
+            TARGET_CLEAN,
+            pathogen_get_target(TARGET_CLEAN)
+            . ' ' . TARGET_CLEAN . '-vim '
+            . TARGET_CLEAN . '-vimrc')));
 
-<?php
     echo call_user_func(call_user_func(
         target_construct(TARGET_CLEAN . '-vim'),
         array(array('rm -rf %s/.vim', DIR_HOME))));
@@ -182,7 +186,7 @@ function pathogen_get_repo($config) {
 function target_construct($target_name, $dependencies = NULL) {
     return function(Array $command_list = array()) use($target_name, $dependencies) {
         return function() use($command_list, $target_name, $dependencies) {
-            return sprintf(
+            return trim(sprintf(
                 '%s: %s%s%s',
                 $target_name,
                 $dependencies,
@@ -194,13 +198,11 @@ function target_construct($target_name, $dependencies = NULL) {
                             return call_user_func_array(
                                 'command_prepend_target',
                                 array_merge(
-                                    array(
-                                        $target_name,
-                                    ),
+                                    array($target_name),
                                     $command
                                 ));
                         },
-                        $command_list)));
+                        $command_list)))) . PHP_EOL . PHP_EOL;
         };
     };
 }
