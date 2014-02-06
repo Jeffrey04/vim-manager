@@ -21,47 +21,111 @@ echo TARGET_DEFAULT; ?>: <?php echo pathogen_get_target(TARGET_INSTALL); ?> <?ph
 
 <?php echo pathogen_get_target(TARGET_CLEAN); ?>: <?php
         echo bundle_list_target(bundle_list($config), TARGET_CLEAN) . PHP_EOL; ?>
-    if [ -d <?php echo DIR_HOME; ?>/.vim/.hg ]; then hg update null -R <?php echo DIR_HOME; ?>/.vim && rm -rf <?php echo DIR_HOME; ?>/.vim/.hg; fi
-    rm -rf <?php echo DIR_HOME; ?>/.vim/bundle
+<?php echo command_prepend_target(
+        pathogen_get_target(TARGET_CLEAN),
+        'if [ -d %s/.vim/.hg ]; then hg update null -R %s/.vim && rm -rf %s/.vim/.hg; fi',
+        DIR_HOME,
+        DIR_HOME,
+        DIR_HOME
+    );
+    echo command_prepend_target(
+        pathogen_get_target(TARGET_CLEAN),
+        'rm -rf %s/.vim/bundle',
+        DIR_HOME);
+?>
 
 <?php echo pathogen_get_target(TARGET_INSTALL); ?>: <?php echo pathogen_get_target(TARGET_CLEAN); ?> .vim .vimrc
-    hg clone <?php echo pathogen_get_repo($config); ?> <?php echo DIR_HOME; ?>/.vim
-    ln -s <?php echo DIR_BUNDLE; ?> <?php echo DIR_HOME; ?>/.vim/bundle
+<?php
+    echo command_prepend_target(
+        pathogen_get_target(TARGET_INSTALL),
+        'hg clone %s %s/.vim',
+        pathogen_get_repo($config),
+        DIR_HOME);
+    echo command_prepend_target(
+        pathogen_get_target(TARGET_INSTALL),
+        'ln -s %s %s/.vim/bundle',
+        DIR_BUNDLE,
+        DIR_HOME);
+?>
 
 <?php echo pathogen_get_target(TARGET_UPDATE); ?>:
-    hg pull -u -R <?php echo DIR_HOME; ?>/.vim
+<?php
+    echo command_prepend_target(
+        pathogen_get_target(TARGET_UPDATE),
+        'hg pull -u -R %s/.vim',
+        DIR_HOME);
+?>
 
 <?php
         array_walk(
             bundle_list($config),
             function($bundle) use($config) { ?>
 <?php echo bundle_get_target($bundle, TARGET_CLEAN); ?>:
-    rm -rf <?php echo bundle_get_path(DIR_BUNDLE, $bundle) . PHP_EOL; ?>
+<?php
+    echo command_prepend_target(
+        bundle_get_target($bundle, TARGET_CLEAN),
+        'rm -rf %s',
+        bundle_get_path(DIR_BUNDLE, $bundle));
+?>
 
 <?php echo bundle_get_target($bundle, TARGET_INSTALL); ?>: <?php echo bundle_get_target($bundle, TARGET_CLEAN) . PHP_EOL; ?>
-    hg clone <?php echo bundle_get_repo($config, $bundle) ?> <?php echo bundle_get_path(DIR_BUNDLE, $bundle) . PHP_EOL; ?>
+<?php
+    echo command_prepend_target(
+        bundle_get_target($bundle, TARGET_CLEAN),
+        'hg clone %s %s',
+        bundle_get_repo($config, $bundle),
+        bundle_get_path(DIR_BUNDLE, $bundle));
+?>
 
 <?php echo bundle_get_target($bundle, TARGET_UPDATE); ?>:
-    hg pull -u -R <?php echo bundle_get_path(DIR_BUNDLE, $bundle) . PHP_EOL . PHP_EOL;
+<?php
+    echo command_prepend_target(
+        bundle_get_target($bundle, TARGET_CLEAN),
+        'hg pull -u -R %s',
+        bundle_get_path(DIR_BUNDLE, $bundle));
+?>
+
+<?php
             }
         );
 
 echo TARGET_CLEAN; ?>: <?php echo pathogen_get_target(TARGET_CLEAN); ?> <?php echo TARGET_CLEAN; ?>-vim <?php echo TARGET_CLEAN; ?>-vimrc
 
 <?php echo TARGET_CLEAN; ?>-vim:
-    rm -rf <?php echo DIR_HOME; ?>/.vim
+<?php
+    echo command_prepend_target(
+        TARGET_CLEAN . '-vim',
+        'rm -rf %s/.vim',
+        DIR_HOME);
+?>
 
 <?php echo TARGET_CLEAN; ?>-vimrc:
-    rm -rf <?php echo DIR_HOME; ?>/.vimrc
+<?php
+    echo command_prepend_target(
+        TARGET_CLEAN . '-vimrc',
+        'rm -rf %s/.vimrc',
+        DIR_HOME);
+?>
 
 <?php echo TARGET_UPDATE; ?>: <?php echo pathogen_get_target(TARGET_UPDATE); ?> <?php
         echo bundle_list_target(bundle_list($config), TARGET_UPDATE) . PHP_EOL; ?>
 
 .vim:
-    mkdir <?php echo DIR_HOME; ?>/.vim
+<?php
+    echo command_prepend_target(
+        '.vim',
+        'mkdir %s/.vim',
+        DIR_HOME);
+?>
 
 .vimrc:
-    ln -s <?php echo DIR_ROOT; ?>/vim-config <?php echo DIR_HOME; ?>/.vimrc
+<?php
+    echo command_prepend_target(
+        '.vimrc',
+        'ln -s %s/vim-config %s/.vimrc',
+        DIR_ROOT,
+        DIR_HOME);
+?>
 
 <?php
     },
@@ -90,6 +154,16 @@ function bundle_list_target($bundle_list, $target) {
                 return bundle_get_target($bundle, $target);
             },
             $bundle_list));
+}
+
+function command_prepend_target($target) {
+    return sprintf(
+        "\t%s | sed 's/.*/\[%s\] &/'%s",
+        vsprintf(
+            func_get_arg(1),
+            array_slice(func_get_args(), 2)),
+        $target,
+        PHP_EOL);
 }
 
 function config_init($config_path) {
