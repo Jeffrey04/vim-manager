@@ -19,7 +19,9 @@ call_user_func(
     echo call_user_func(call_user_func(
         target_construct(
             TARGET_DEFAULT,
-            pathogen_get_target(TARGET_INSTALL) . ' ' . bundle_list_target(bundle_list($config), TARGET_INSTALL))));
+            array_merge(
+                array(pathogen_get_target(TARGET_INSTALL)),
+                bundle_list_target(bundle_list($config), TARGET_INSTALL)))));
 
     echo call_user_func(call_user_func(
         target_construct(
@@ -38,7 +40,7 @@ call_user_func(
     echo call_user_func(call_user_func(
         target_construct(
             pathogen_get_target(TARGET_INSTALL),
-            pathogen_get_target(TARGET_CLEAN) . ' .vim .vimrc'),
+            array(pathogen_get_target(TARGET_CLEAN), '.vim', '.vimrc')),
         array(
             array(
                 'hg clone %s %s/.vim',
@@ -65,7 +67,7 @@ call_user_func(
     echo call_user_func(call_user_func(
         target_construct(
             bundle_get_target($bundle, TARGET_INSTALL),
-            bundle_get_target($bundle, TARGET_CLEAN)),
+            array(bundle_get_target($bundle, TARGET_CLEAN))),
         array(array('hg clone %s %s',
             bundle_get_repo($config, $bundle),
             bundle_get_path(DIR_BUNDLE, $bundle)))));
@@ -80,9 +82,10 @@ call_user_func(
     echo call_user_func(call_user_func(
         target_construct(
             TARGET_CLEAN,
-            pathogen_get_target(TARGET_CLEAN)
-            . ' ' . TARGET_CLEAN . '-vim '
-            . TARGET_CLEAN . '-vimrc')));
+            array(
+                pathogen_get_target(TARGET_CLEAN),
+                TARGET_CLEAN . '-vim',
+                TARGET_CLEAN . '-vimrc'))));
 
     echo call_user_func(call_user_func(
         target_construct(TARGET_CLEAN . '-vim'),
@@ -95,8 +98,9 @@ call_user_func(
     echo call_user_func(call_user_func(
         target_construct(
             TARGET_UPDATE,
-            pathogen_get_target(TARGET_UPDATE)
-            . ' ' . bundle_list_target(bundle_list($config), TARGET_UPDATE))));
+            array_merge(
+                array(pathogen_get_target(TARGET_UPDATE)),
+                bundle_list_target(bundle_list($config), TARGET_UPDATE)))));
 
     echo call_user_func(call_user_func(
         target_construct('.vim'),
@@ -127,11 +131,11 @@ function bundle_list(Closure $config) {
 }
 
 function bundle_list_target($bundle_list, $target) {
-    return implode(' ', array_map(
-            function($bundle) use($target) {
-                return bundle_get_target($bundle, $target);
-            },
-            $bundle_list));
+    return array_map(
+        function($bundle) use($target) {
+            return bundle_get_target($bundle, $target);
+        },
+        $bundle_list);
 }
 
 function command_prepend_target($target) {
@@ -183,13 +187,13 @@ function pathogen_get_repo($config) {
     return $config(KEY_PATHOGEN);
 }
 
-function target_construct($target_name, $dependencies = NULL) {
+function target_construct($target_name, Array $dependencies = array()) {
     return function(Array $command_list = array()) use($target_name, $dependencies) {
         return function() use($command_list, $target_name, $dependencies) {
             return trim(sprintf(
                 '%s: %s%s%s',
                 $target_name,
-                $dependencies,
+                implode(' ', $dependencies),
                 PHP_EOL,
                 implode(
                     NULL,
