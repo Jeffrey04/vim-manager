@@ -16,6 +16,7 @@
         "plugin-niji": "git://github.com/amdt/vim-niji.git",
         "plugin-rainbow-csv": "git://github.com/vim-scripts/rainbow_csv.vim.git",
         "plugin-supertab": "git://github.com/ervandew/supertab.git",
+        "plugin-vimwiki": "git://github.com/vimwiki/vimwiki.git",
         "syntax-php": "git://github.com/StanAngeloff/php.vim.git",
         "theme-solarized": "git://github.com/altercation/vim-colors-solarized.git"
     }

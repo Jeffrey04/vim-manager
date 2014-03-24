@@ -300,3 +300,8 @@ let g:SuperTabDefaultCompletionType = "context"
 
 " fall back to a secondary default completion
 let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
+
+"
+" VimWiki
+"
+let g:vimwiki_list = [{'path': '~/Documents/Wiki/', 'path_html': '~/public_html/wiki/'}]
