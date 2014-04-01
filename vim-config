@@ -7,7 +7,6 @@
 call pathogen#infect()
 Helptags
 
-
 "
 " Appearance
 "
@@ -195,8 +194,11 @@ filetype plugin on
 filetype indent on
 
 " automatically use system clipboard for cut and paste
+" Only on linux
 " http://stackoverflow.com/questions/3961859/how-to-copy-to-clipboard-using-vim
-set clipboard=unnamedplus
+if has("gui_gtk")
+    set clipboard=unnamedplus
+endif
 
 
 "
@@ -304,4 +306,4 @@ let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
 "
 " VimWiki
 "
-let g:vimwiki_list = [{'path': '~/Documents/Wiki/', 'path_html': '~/public_html/wiki/'}]
+let g:vimwiki_list = [{'path': '~/Documents/Wiki/', 'path_html': '~/Documents/Wiki/html/', 'auto_export': 1}]

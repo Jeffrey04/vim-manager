@@ -12,6 +12,7 @@
         "plugin-delimitmate": "git://github.com/Raimondi/delimitMate.git",
         "plugin-ctrlp": "git://github.com/kien/ctrlp.vim",
         "plugin-fencview": "git://github.com/mbbill/fencview.git",
+        "plugin-golden-ratio": "git://github.com/roman/golden-ratio",
         "plugin-l9": "https://bitbucket.org/ns9tks/vim-l9",
         "plugin-niji": "git://github.com/amdt/vim-niji.git",
         "plugin-rainbow-csv": "git://github.com/vim-scripts/rainbow_csv.vim.git",
