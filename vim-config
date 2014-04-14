@@ -214,6 +214,10 @@ set exrc
 " <http://vimdoc.sourceforge.net/htmldoc/options.html#'secure'>
 set secure
 
+" store the swap files elsewhere
+" http://stackoverflow.com/questions/4331776/change-vim-swap-backup-undo-file-name
+set dir=/tmp//,.
+
 
 "
 " Advanced Scripts & Plugin settings
