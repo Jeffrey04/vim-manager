@@ -16,6 +16,7 @@
         "plugin-l9": "https://bitbucket.org/ns9tks/vim-l9",
         "plugin-niji": "git://github.com/amdt/vim-niji.git",
         "plugin-rainbow-csv": "git://github.com/vim-scripts/rainbow_csv.vim.git",
+        "plugin-slimv": "https://bitbucket.org/kovisoft/slimv",
         "plugin-supertab": "git://github.com/ervandew/supertab.git",
         "plugin-vimwiki": "git://github.com/vimwiki/vimwiki.git",
         "syntax-php": "git://github.com/StanAngeloff/php.vim.git",
