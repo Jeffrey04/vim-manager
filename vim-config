@@ -274,8 +274,11 @@ set iskeyword+=:
 " help 40.2
 nnoremap <leader>ks normal!:%s/\s\+$<CR>
 
+" tabbing
 " new tab page
 nnoremap <leader>t <ESC>:tabnew<CR>
+map <C-Tab> <ESC>:tabnext<CR>
+map <C-S-Tab> <ESC>:tabprevious<CR>
 
 " Flying is faster than cycling.
 " https://plus.google.com/104286962752255423480/posts/bmHQXnKeimj
