@@ -13,7 +13,7 @@ Helptags
 
 " GUI font
 " <http://vimdoc.sourceforge.net/htmldoc/options.html#'guifont'>
-set guifont=Monaco\ for\ Powerline\ 10
+set guifont=Monaco\ for\ Powerline:h10
 
 " Options for GUI
 " <http://vimdoc.sourceforge.net/htmldoc/options.html#'guioptions'>
@@ -38,7 +38,7 @@ set ruler
 
 " Set transparency for MacVim
 if has("gui_macvim")
-    set transparency=15
+    set transparency=5
 endif
 
 
