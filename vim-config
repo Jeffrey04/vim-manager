@@ -13,7 +13,11 @@ Helptags
 
 " GUI font
 " <http://vimdoc.sourceforge.net/htmldoc/options.html#'guifont'>
-set guifont=Monaco\ for\ Powerline:h10
+if has("gui_macvim")
+    set guifont=Monaco\ for\ Powerline:h10
+elseif has("gui_gtk")
+    set guifont=Monaco\ for\ Powerline\ 10
+endif
 
 " Options for GUI
 " <http://vimdoc.sourceforge.net/htmldoc/options.html#'guioptions'>
