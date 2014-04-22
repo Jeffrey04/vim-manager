@@ -288,6 +288,7 @@ nnoremap <leader>l :ls<CR>:b<space>
 " CtrlP mappings
 "
 nnoremap <leader>cp <ESC>:CtrlPMixed<CR><CR>
+let g:ctrlp_cmd = 'CtrlPMixed'
 
 "
 " Fuzzy Finder mappings
@@ -320,3 +321,4 @@ let g:vimwiki_list = [{'path': '~/Documents/Wiki/', 'path_html': '~/Documents/Wi
 "
 set laststatus=2
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
