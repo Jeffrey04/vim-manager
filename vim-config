@@ -13,7 +13,7 @@ Helptags
 
 " GUI font
 " <http://vimdoc.sourceforge.net/htmldoc/options.html#'guifont'>
-set guifont=Monaco\ 10
+set guifont=Monaco\ for\ Powerline\ 10
 
 " Options for GUI
 " <http://vimdoc.sourceforge.net/htmldoc/options.html#'guioptions'>
@@ -314,3 +314,9 @@ let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
 " VimWiki
 "
 let g:vimwiki_list = [{'path': '~/Documents/Wiki/', 'path_html': '~/Documents/Wiki/html/', 'auto_export': 1}]
+
+"
+" Airline
+"
+set laststatus=2
+let g:airline_powerline_fonts = 1
