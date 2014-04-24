@@ -17,6 +17,7 @@
         "plugin-fireplace": "git://github.com/tpope/vim-fireplace.git",
         "plugin-golden-ratio": "git://github.com/roman/golden-ratio",
         "plugin-l9": "https://bitbucket.org/ns9tks/vim-l9",
+        "plugin-neocomplete": "git://github.com/Shougo/neocomplete.vim.git",
         "plugin-niji": "git://github.com/amdt/vim-niji.git",
         "plugin-php-namespace": "git://github.com/arnaud-lb/vim-php-namespace.git",
         "plugin-rainbow-csv": "git://github.com/vim-scripts/rainbow_csv.vim.git",

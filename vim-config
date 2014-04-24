@@ -258,6 +258,7 @@ if has("autocmd")
     autocmd FileType json set foldmethod=syntax
 
     autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+    autocmd FileType python set omnifunc=pythoncomplete#Complete
 endif
 
 "
@@ -291,7 +292,7 @@ nnoremap <leader>l :ls<CR>:b<space>
 "
 " CtrlP mappings
 "
-nnoremap <leader>cp <ESC>:CtrlPMixed<CR><CR>
+nnoremap <leader>p <ESC>:CtrlPMixed<CR><CR>
 let g:ctrlp_cmd = 'CtrlPMixed'
 
 "
@@ -326,3 +327,8 @@ let g:vimwiki_list = [{'path': '~/Documents/Wiki/', 'path_html': '~/Documents/Wi
 set laststatus=2
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
+
+"
+" Neocomplete
+"
+let g:neocomplete#enable_at_startup = 1
