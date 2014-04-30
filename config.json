@@ -22,7 +22,9 @@
         "plugin-php-namespace": "git://github.com/arnaud-lb/vim-php-namespace.git",
         "plugin-rainbow-csv": "git://github.com/vim-scripts/rainbow_csv.vim.git",
         "plugin-supertab": "git://github.com/ervandew/supertab.git",
+        "plugin-vawa": "https://bitbucket.org/sras/vawa",
         "plugin-vimwiki": "git://github.com/vimwiki/vimwiki.git",
+        "plugin-vinegar": "git://github.com/tpope/vim-vinegar.git",
         "syntax-php": "git://github.com/StanAngeloff/php.vim.git",
         "theme-solarized": "git://github.com/altercation/vim-colors-solarized.git"
     }
