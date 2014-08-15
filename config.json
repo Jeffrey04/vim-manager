@@ -26,6 +26,7 @@
         "plugin-vimwiki": "git://github.com/vimwiki/vimwiki.git",
         "plugin-vinegar": "git://github.com/tpope/vim-vinegar.git",
         "syntax-php": "git://github.com/StanAngeloff/php.vim.git",
+        "theme-gruvbox": "git://github.com/morhetz/gruvbox.git",
         "theme-solarized": "git://github.com/altercation/vim-colors-solarized.git"
     }
 }
