@@ -222,6 +222,10 @@ set secure
 " http://stackoverflow.com/questions/4331776/change-vim-swap-backup-undo-file-name
 set dir=/tmp//,.
 
+" automatically change working directory
+" http://vim.wikia.com/wiki/Set_working_directory_to_the_current_file
+set autochdir
+
 
 "
 " Advanced Scripts & Plugin settings
@@ -240,7 +244,12 @@ set showcmd
 if has("autocmd")
     " auto trim trailing whitespace
     " <http://vim.wikia.com/wiki/Remove_unwanted_spaces>
-    autocmd BufWritePre * :%s/\s\s\+$//e
+    " autocmd BufWritePre * :%s/\s\s\+$//e
+
+    augroup ruby
+        autocmd BufReadPre,FileReadPre *.rb set shiftwidth=2 tabstop=2
+        autocmd BufReadPre,FileReadPre *.feature set shiftwidth=2 tabstop=2
+    augroup END
 
     " Drupal *.module and *.install files.
     augroup drupal
