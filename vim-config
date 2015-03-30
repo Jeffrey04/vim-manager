@@ -248,7 +248,7 @@ set showcmd
 if has("autocmd")
     " auto trim trailing whitespace
     " <http://vim.wikia.com/wiki/Remove_unwanted_spaces>
-    " autocmd BufWritePre * :%s/\s\s\+$//e
+    autocmd BufWritePre * :%s/\s\s\+$//e
 
     augroup ruby
         autocmd BufReadPre,FileReadPre *.rb set shiftwidth=2 tabstop=2
