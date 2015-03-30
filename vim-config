@@ -231,6 +231,10 @@ set autochdir
 " Advanced Scripts & Plugin settings
 "
 
+" set proper shell
+" https://github.com/vim-ruby/vim-ruby/issues/166
+set shell=/bin/bash
+
 " for leader key
 " "http://stackoverflow.com/questions/1764263/what-is-the-leader-in-a-vimrc-file/8160809#8160809
 set showcmd
