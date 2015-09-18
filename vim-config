@@ -224,7 +224,7 @@ set dir=/tmp//,.
 
 " automatically change working directory
 " http://vim.wikia.com/wiki/Set_working_directory_to_the_current_file
-set autochdir
+autocmd BufEnter * silent! lcd %:p:h
 
 
 "
@@ -242,6 +242,10 @@ set showcmd
 " Highlight space character
 :au InsertEnter * match Todo /\s\+\%#\@<!$/
 :au InsertLeave * match Todo /\s\+$/
+
+" automatically close autocomplete pane
+" http://stackoverflow.com/questions/3105307/how-do-you-automatically-remove-the-preview-window-after-autocompletion-in-vim
+let g:SuperTabClosePreviewOnPopupClose = 1
 
 " File type specific settings
 " <http://superuser.com/questions/177837/different-vim-indentation-settings-for-specific-file-type>
@@ -267,6 +271,13 @@ if has("autocmd")
 
         autocmd BufRead,BufNewFile *.module set tabstop=2 shiftwidth=2
     augroup END
+
+    autocmd FileType go let g:go_highlight_functions=1
+    autocmd FileType go let g:go_highlight_methods=1
+    autocmd FileType go let g:go_highlight_structs=1
+    autocmd FileType go let g:go_highlight_operators=1
+    autocmd FileType go let g:go_highlight_build_constraints=1
+    autocmd FileType go let g:go_fmt_command="goimports"
 
     autocmd FileType json set foldmethod=syntax
 
