@@ -2,6 +2,7 @@
     "pathogen": "git://github.com/tpope/vim-pathogen.git",
     "bundle": {
         "filetype-clojure": "git://github.com/guns/vim-clojure-static.git",
+        "filetype-go": "git://github.com/fatih/vim-go.git",
         "filetype-javascript": "git://github.com/pangloss/vim-javascript.git",
         "filetype-json": "git://github.com/rogerz/vim-json.git",
         "filetype-latex": "git://github.com/vim-latex/vim-latex.git",
