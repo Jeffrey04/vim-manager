@@ -244,8 +244,9 @@ set showcmd
 :au InsertLeave * match Todo /\s\+$/
 
 " automatically close autocomplete pane
-" http://stackoverflow.com/questions/3105307/how-do-you-automatically-remove-the-preview-window-after-autocompletion-in-vim
-let g:SuperTabClosePreviewOnPopupClose = 1
+" http://stackoverflow.com/questions/3105307/how-do-you-automatically-remove-the-preview-window-after-autocompletion-in-vim/3107159#3107159
+autocmd CursorMovedI * if pumvisible() == 0|silent! pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|silent! pclose|endif
 
 " File type specific settings
 " <http://superuser.com/questions/177837/different-vim-indentation-settings-for-specific-file-type>
@@ -257,6 +258,12 @@ if has("autocmd")
     augroup ruby
         autocmd BufReadPre,FileReadPre *.rb set shiftwidth=2 tabstop=2
         autocmd BufReadPre,FileReadPre *.feature set shiftwidth=2 tabstop=2
+    augroup END
+
+    augroup python_autopep8
+        "autocmd BufWritePre *.py call Autopep8()
+        nnoremap <leader>f <ESC>:Autopep8<CR><ESC>:Isort<CR>
+        autocmd FileType python let g:autopep8_disable_show_diff=1
     augroup END
 
     " Drupal *.module and *.install files.
@@ -272,17 +279,23 @@ if has("autocmd")
         autocmd BufRead,BufNewFile *.module set tabstop=2 shiftwidth=2
     augroup END
 
-    autocmd FileType go let g:go_highlight_functions=1
-    autocmd FileType go let g:go_highlight_methods=1
-    autocmd FileType go let g:go_highlight_structs=1
-    autocmd FileType go let g:go_highlight_operators=1
-    autocmd FileType go let g:go_highlight_build_constraints=1
-    autocmd FileType go let g:go_fmt_command="goimports"
+    augroup go
+        autocmd FileType go let g:go_highlight_functions=1
+        autocmd FileType go let g:go_highlight_methods=1
+        autocmd FileType go let g:go_highlight_structs=1
+        autocmd FileType go let g:go_highlight_operators=1
+        autocmd FileType go let g:go_highlight_build_constraints=1
+        autocmd FileType go let g:go_fmt_command="goimports"
+    augroup END
 
     autocmd FileType json set foldmethod=syntax
 
     autocmd FileType php set omnifunc=phpcomplete#CompletePHP
     autocmd FileType python set omnifunc=pythoncomplete#Complete
+    autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+    autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType html,markdown set omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 endif
 
 "
@@ -356,3 +369,13 @@ let g:airline#extensions#tabline#enabled = 1
 " Neocomplete
 "
 let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#enable_auto_select = 1
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+"
+" Buffer Management
+"
+nnoremap <leader>n <ESC>:bnext<CR>
+nnoremap <leader>p <ESC>:bprevious<CR>
