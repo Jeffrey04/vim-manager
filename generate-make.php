@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-define('DIR_ROOT', realpath(__DIR__));
+define('DIR_ROOT', getcwd());
 define('DIR_BUNDLE', realpath('./default-bundles'));
 define('DIR_HOME', realpath(getenv('HOME')));
 
@@ -9,6 +9,7 @@ define('KEY_BUNDLE', 'bundle');
 define('KEY_PATHOGEN', 'pathogen');
 
 define('TARGET_DEFAULT', 'all');
+define('TARGET_BOOTSTRAP', 'bootstrap');
 define('TARGET_INSTALL', 'install');
 define('TARGET_UPDATE', 'update');
 define('TARGET_CLEAN', 'clean');
@@ -20,8 +21,15 @@ call_user_func(
             target_construct(
                 TARGET_DEFAULT,
                 array_merge(
-                    array(pathogen_get_target(TARGET_INSTALL)),
+                    array(TARGET_BOOTSTRAP),
                     bundle_list_target(bundle_list($config), TARGET_INSTALL)))));
+
+        echo call_user_func(call_user_func(
+            target_construct(
+                TARGET_BOOTSTRAP,
+                array_merge(
+                    array(pathogen_get_target(TARGET_INSTALL)),
+                    array('.vimrc')))));
 
         echo call_user_func(call_user_func(
             target_construct(
@@ -29,32 +37,32 @@ call_user_func(
                 bundle_list_target(bundle_list($config), TARGET_CLEAN)),
             array(
                 array(
-                    'if [ -d %s/.vim/.hg ]; then hg update -y null -R %s/.vim && rm -rf %s/.vim/.hg; fi',
-                    DIR_HOME,
-                    DIR_HOME,
-                    DIR_HOME),
+                    'if [ -d %s/.hg ]; then hg update -y null -R %s && rm -rf %s/.hg; fi',
+                    vim_get_dir($config),
+                    vim_get_dir($config),
+                    vim_get_dir($config)),
                 array(
-                    'rm -rf %s/.vim/bundle',
-                    DIR_HOME))));
+                    'rm -rf %s/bundle',
+                    vim_get_dir($config)))));
 
         echo call_user_func(call_user_func(
             target_construct(
                 pathogen_get_target(TARGET_INSTALL),
-                array(pathogen_get_target(TARGET_CLEAN), '.vim', '.vimrc')),
+                array(pathogen_get_target(TARGET_CLEAN), '.vim')),
             array(
                 array(
-                    'hg clone -y %s %s/.vim',
+                    'hg clone -y %s %s',
                     pathogen_get_repo($config),
-                    DIR_HOME),
+                    vim_get_dir($config)),
                 array(
-                    'ln -s %s %s/.vim/bundle',
+                    'ln -s %s %s/bundle',
                     DIR_BUNDLE,
-                    DIR_HOME))));
+                    vim_get_dir($config)))));
 
         echo call_user_func(call_user_func(
             target_construct(pathogen_get_target(TARGET_UPDATE)),
             array(
-                array('hg pull -y -u -R %s/.vim', DIR_HOME)
+                array('hg pull -y -u -R %s', vim_get_dir($config))
             )));
 
         array_walk(
@@ -88,11 +96,11 @@ call_user_func(
 
         echo call_user_func(call_user_func(
             target_construct(TARGET_CLEAN . '-vim'),
-            array(array('rm -rf %s/.vim', DIR_HOME))));
+            array(array('rm -rf %s', vim_get_dir($config)))));
 
         echo call_user_func(call_user_func(
             target_construct(TARGET_CLEAN . '-vimrc'),
-            array(array('rm -rf %s/.vimrc', DIR_HOME))));
+            array(array('rm -rf %s', vim_get_rc($config)))));
 
         echo call_user_func(call_user_func(
             target_construct(
@@ -103,11 +111,11 @@ call_user_func(
 
         echo call_user_func(call_user_func(
             target_construct('.vim'),
-            array(array('mkdir %s/.vim', DIR_HOME))));
+            array(array('mkdir %s', vim_get_dir($config)))));
 
         echo call_user_func(call_user_func(
             target_construct('.vimrc'),
-            array(array('ln -s %s/vim-config %s/.vimrc', DIR_ROOT, DIR_HOME))));
+            array(array('ln -s %s/vim-config %s', DIR_ROOT, vim_get_rc($config)))));
 
     },
     config_init(realpath($_SERVER['argv'][1]))
@@ -210,4 +218,18 @@ function target_construct($target_name, Array $dependencies = array()) {
                 . PHP_EOL . PHP_EOL;
         };
     };
+}
+
+function vim_get_dir(Closure $config) {
+    return sprintf(
+        '%s/%s',
+        DIR_HOME,
+        $config('for') == 'vim' ? '.vim' : '.config/nvim');
+}
+
+function vim_get_rc(Closure $config) {
+    return sprintf(
+        '%s/%s',
+        DIR_HOME,
+        $config('for') == 'vim' ? '.vimrc' : '.config/nvim/init.vim');
 }
