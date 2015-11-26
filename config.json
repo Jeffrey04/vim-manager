@@ -1,4 +1,5 @@
 {
+    "for": "vim",
     "pathogen": "git://github.com/tpope/vim-pathogen.git",
     "bundle": {
         "filetype-clojure": "git://github.com/guns/vim-clojure-static.git",
@@ -16,6 +17,7 @@
         "plugin-airline": "git://github.com/bling/vim-airline.git",
         "plugin-autopep8": "git@github.com:tell-k/vim-autopep8.git",
         "plugin-clojure-highlight": "git://github.com/guns/vim-clojure-highlight.git",
+        "plugin-css-color": "git@github.com:ap/vim-css-color.git",
         "plugin-delimitmate": "git://github.com/Raimondi/delimitMate.git",
         "plugin-ctrlp": "git://github.com/kien/ctrlp.vim",
         "plugin-fencview": "git://github.com/mbbill/fencview.git",
