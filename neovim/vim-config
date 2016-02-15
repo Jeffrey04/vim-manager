@@ -20,6 +20,14 @@ Helptags
 " Enable true-color support
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
+" GUI font
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'guifont'>
+if has("gui_macvim")
+    set guifont=Monaco\ for\ Powerline:h10
+elseif has("gui_gtk")
+    set guifont=Monaco\ for\ Powerline\ 10
+endif
+
 " Load color scheme
 " <http://vimdoc.sourceforge.net/htmldoc/syntax.html#:colorscheme>
 colorscheme base16-atelierforest
@@ -46,6 +54,14 @@ set number
 " Editor Options
 "
 
+fun! StripTrailingWhitespace()
+    " Don't strip on these filetypes
+    if &ft =~ 'markdown'
+        return
+    endif
+    %s/\s\s\+$//e
+endfun
+
 " automatically change working directory
 " http://vim.wikia.com/wiki/Set_working_directory_to_the_current_file
 autocmd BufEnter * silent! lcd %:p:h
@@ -56,7 +72,8 @@ autocmd InsertLeave * match Todo /\s\+$/
 
 " auto trim trailing whitespace
 " <http://vim.wikia.com/wiki/Remove_unwanted_spaces>
-autocmd BufWritePre * :%s/\s\s\+$//e
+" <http://stackoverflow.com/a/6496995/5742>
+autocmd BufWritePre * call StripTrailingWhitespace()
 
 " better backspacing
 " http://vimdoc.sourceforge.net/htmldoc/options.html
@@ -199,3 +216,9 @@ if has("macunix")
     let g:python3_host_prog = '/Users/jeffrey04/.local/bin/python3'
     let g:python_host_prog = '/Users/jeffrey04/.local/bin/python'
 endif
+
+"
+" Rainbow Parenthesis
+"
+let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
+autocmd VimEnter * RainbowParentheses
