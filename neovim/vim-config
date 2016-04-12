@@ -222,3 +222,14 @@ endif
 "
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 autocmd VimEnter * RainbowParentheses
+
+"
+" hiPairs
+"
+let g:hiPairs_hl_matchPair = { 'term'    : 'underline,bold',
+            \                  'cterm'   : 'underline,bold',
+            \                  'ctermfg' : 'NONE',
+            \                  'ctermbg' : 'NONE',
+            \                  'gui'     : 'underline,bold',
+            \                  'guifg'   : 'NONE',
+            \                  'guibg'   : 'YELLOW' }
