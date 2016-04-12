@@ -65,8 +65,9 @@ call_user_func(
                 array('hg pull -y -u -R %s', vim_get_dir($config))
             )));
 
+        $_list = bundle_list($config);
         array_walk(
-            bundle_list($config),
+            $_list,
             function($bundle) use($config) {
                 echo call_user_func(call_user_func(
                     target_construct(bundle_get_target($bundle, TARGET_CLEAN)),
