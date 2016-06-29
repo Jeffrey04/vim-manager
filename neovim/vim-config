@@ -208,6 +208,7 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " http://stackoverflow.com/questions/3105307/how-do-you-automatically-remove-the-preview-window-after-autocompletion-in-vim/3107159#3107159
 autocmd CursorMovedI * if pumvisible() == 0|silent! pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|silent! pclose|endif
+autocmd CompleteDone * pclose " To close preview window of deoplete automagically
 
 "
 " Python support
@@ -222,14 +223,3 @@ endif
 "
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 autocmd VimEnter * RainbowParentheses
-
-"
-" hiPairs
-"
-let g:hiPairs_hl_matchPair = { 'term'    : 'underline,bold',
-            \                  'cterm'   : 'underline,bold',
-            \                  'ctermfg' : 'NONE',
-            \                  'ctermbg' : 'NONE',
-            \                  'gui'     : 'underline,bold',
-            \                  'guifg'   : 'NONE',
-            \                  'guibg'   : 'YELLOW' }

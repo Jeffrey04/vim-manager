@@ -1,4 +1,5 @@
 autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr>
 
 " Number of spaces that a <Tab> in the file counts for
 " <http://vimdoc.sourceforge.net/htmldoc/options.html#'tabstop'>
