@@ -13,6 +13,7 @@
         "plugin-deoplete": "git://github.com/Shougo/deoplete.nvim.git",
         "plugin-deoplete-jedi": "git://github.com/zchee/deoplete-jedi.git",
         "plugin-fugitive": "git://github.com/tpope/vim-fugitive.git",
+        "plugin-golang": "git://github.com/fatih/vim-go.git",
         "plugin-golden-ratio": "git://github.com/roman/golden-ratio.git",
         "plugin-rainbow-csv": "git://github.com/vim-scripts/rainbow_csv.vim.git",
         "plugin-rainbow-paren": "git://github.com/junegunn/rainbow_parentheses.vim.git",

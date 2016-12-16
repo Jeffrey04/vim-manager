@@ -1,11 +1,17 @@
 "
+" vim options
+"
+
+
+"
 " Startup Options
 "
 
 " Call Pathogen
 " <https://github.com/tpope/vim-pathogen>
-call pathogen#infect()
+execute pathogen#infect()
 Helptags
+
 
 "
 " Appearance
@@ -19,81 +25,60 @@ elseif has("gui_gtk")
     set guifont=Monaco\ for\ Powerline\ 10
 endif
 
-" Options for GUI
-" <http://vimdoc.sourceforge.net/htmldoc/options.html#'guioptions'>
-" a     Autoselect: Visually highlighted text is available for pasting into
-"       other applications as well as into Vim itself.
-" e     Add tab pages when indicated with 'showtabline'.
-" g     Grey menu items: Make menu items that are not active grey.
-" i     Use a Vim icon.
-" m     Menu bar is present.
-" r     Right-hand scrollbar is always present.
-" L     Left-hand scrollbar is present when there is a vertically split window.
-" t     Include tearoff menu items.
-" use += instead of = http://stackoverflow.com/questions/846879/remove-the-toolbar-in-gvim/846893#comment20059534_846893
-set guioptions=aegimt
+" Load color scheme
+" <http://vimdoc.sourceforge.net/htmldoc/syntax.html#:colorscheme>
+colorscheme base16-atelierforest
 
-" Show tabline
-" <http://vimdoc.sourceforge.net/htmldoc/options.html#'showtabline'>
-set showtabline=2
+" switch syntax highlighting on
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'syntax'>
+syntax enable
+syntax on
 
-" Show the line and column number of the cursor position, separated by a comma.
-set ruler
+" Setting dark background
+" http://vimdoc.sourceforge.net/htmldoc/options.html#'background'
+set background=dark
 
-" Set transparency for MacVim
-if has("gui_macvim")
-    set transparency=5
-endif
+" color character after from 85 chars onwards
+" http://stevelosh.com/blog/2010/09/coming-home-to-vim/#important-vimrc-lines
+set colorcolumn=85
 
-
-"
-" Buffer Management
-"
-
-" buffer becomes hidden when it is |abandon|ed
-" <http://vimdoc.sourceforge.net/htmldoc/options.html#'hidden'>
-set hidden
+" Print the line number in front of each line.
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'number'>
+set number
 
 
 "
 " Editor Options
 "
 
-" Copy indent from current line when starting a new line
-" <http://vimdoc.sourceforge.net/htmldoc/options.html#'autoindent'>
-set autoindent
+fun! StripTrailingWhitespace()
+    " Don't strip on these filetypes
+    if &ft =~ 'markdown'
+        return
+    endif
+    %s/\s\s\+$//e
+endfun
 
-" Don't autosave the file
-" <http://vimdoc.sourceforge.net/htmldoc/options.html#'autowrite'>
-set noautowrite
+" automatically change working directory
+" http://vim.wikia.com/wiki/Set_working_directory_to_the_current_file
+autocmd BufEnter * silent! lcd %:p:h
 
-" like 'autowrite', but cover more commands
-" <http://vimdoc.sourceforge.net/htmldoc/options.html#'autowriteall'>
-set noautowriteall
+" Highlight space character
+autocmd InsertEnter * match Todo /\s\+\%#\@<!$/
+autocmd InsertLeave * match Todo /\s\+$/
 
-" Don't make a backup before overwriting a file
-" <http://vimdoc.sourceforge.net/htmldoc/options.html#'backup'>
-set nobackup
-
-" Setting dark background
-" http://vimdoc.sourceforge.net/htmldoc/options.html#'background'
-set background=dark
+" auto trim trailing whitespace
+" <http://vim.wikia.com/wiki/Remove_unwanted_spaces>
+" <http://stackoverflow.com/a/6496995/5742>
+autocmd BufWritePre * call StripTrailingWhitespace()
 
 " better backspacing
 " http://vimdoc.sourceforge.net/htmldoc/options.html
 set backspace=indent,eol,start
 
-" Which directory to use for the file browser
-" <http://vimdoc.sourceforge.net/htmldoc/options.html#'browsedir'>
-set browsedir=buffer
-
-" color character after from 85 chars onwards
-" http://stevelosh.com/blog/2010/09/coming-home-to-vim/#important-vimrc-lines
-set colorcolumn=85
-
-" Load color scheme
-" <http://vimdoc.sourceforge.net/htmldoc/syntax.html#:colorscheme>
-colorscheme base16-atelierforest
+" always use system clipboard
+" <https://neovim.io/doc/user/nvim_clipboard.html#nvim-clipboard-intro>
+set clipboard+=unnamedplus
 
 " Use the appropriate number of spaces to insert a <Tab>
 " <http://vimdoc.sourceforge.net/htmldoc/options.html#'expandtab'>
@@ -104,17 +89,13 @@ set expandtab
 " unix: <NL>
 set fileformat=unix
 
-" switch on incremental search
-" <http://vimdoc.sourceforge.net/htmldoc/options.html#'incsearch'>
-set incsearch
+" do not highlight all matching candidates
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'hlsearch'>
+set nohlsearch
 
 " ignore case in search pattern
 " <http://vimdoc.sourceforge.net/htmldoc/options.html#'ignorecase'>
 set ignorecase
-
-" Print the line number in front of each line.
-" <http://vimdoc.sourceforge.net/htmldoc/options.html#'number'>
-set number
 
 " Number of spaces to use for each step of (auto)indent
 " <http://vimdoc.sourceforge.net/htmldoc/options.html#'shiftwidth'>
@@ -137,53 +118,28 @@ set smarttab
 " <http://vimdoc.sourceforge.net/htmldoc/options.html#'softtabstop'>
 set softtabstop=4
 
-" Enable spell-checking
-" <http://vimdoc.sourceforge.net/htmldoc/options.html#'spell'>
-set spell
-
-" spellchecking will be done for these languages
-" <http://vimdoc.sourceforge.net/htmldoc/options.html#'spelllang'>
-set spelllang=en
-
 " split new window to the right
 " <http://vimdoc.sourceforge.net/htmldoc/options.html#'splitright'>
 set splitright
 
-" faster terminal connection
-" http://vimdoc.sourceforge.net/htmldoc/options.html#'ttyfast'
-set ttyfast
-
-" switch syntax highlighting on
-" <http://vimdoc.sourceforge.net/htmldoc/options.html#'syntax'>
-syntax enable
-syntax on
-
-" Number of spaces that a <Tab> in the file counts for
-" <http://vimdoc.sourceforge.net/htmldoc/options.html#'tabstop'>
-set tabstop=4
-
-" set autocompletion menu for commands
-" http://vimdoc.sourceforge.net/htmldoc/options.html#'wildmenu'
-set wildmenu
-
-" Auto-completion mode
+" Auto-completion mode for commands
 " <http://vimdoc.sourceforge.net/htmldoc/options.html#'wildmode'>
 " list:longest: When more than one match, list all matches and complete till
 " longest common string.
-set wildmode=list:longest
-
-" Allows writing to any file with no need for '!' override.
-" <http://vimdoc.sourceforge.net/htmldoc/options.html#'writeany'>
-set nowriteany
+set wildmode=longest:full
 
 " lines longer than the width of the window will wrap and displaying continues
 " on the next line.
 " <http://vimdoc.sourceforge.net/htmldoc/options.html#'wrap'>
 set nowrap
 
-" Autoresize the splits
-" http://stackoverflow.com/questions/12087537/maintaining-split-window-proportions-when-resizing-window-frame-in-gvim
-:au VimResized * wincmd =
+" for leader key
+" "http://stackoverflow.com/questions/1764263/what-is-the-leader-in-a-vimrc-file/8160809#8160809
+set showcmd
+
+" Number of spaces that a <Tab> in the file counts for
+" <http://vimdoc.sourceforge.net/htmldoc/options.html#'tabstop'>
+set tabstop=4
 
 
 "
@@ -195,184 +151,12 @@ set nowrap
 filetype plugin on
 
 " when a file is edited its indent file is loaded
-filetype indent on
-
-" automatically use system clipboard for cut and paste
-" Only on linux
-" http://stackoverflow.com/questions/3961859/how-to-copy-to-clipboard-using-vim
-if has("gui_gtk")
-    set clipboard=unnamedplus
-endif
+filetype plugin indent on
 
 
 "
-" Advanced Settings
+" Leader Key & Shortcuts
 "
-
-" Enables the reading of .vimrc, .exrc and .gvimrc in the current directory.
-" <http://vimdoc.sourceforge.net/htmldoc/options.html#'exrc'>
-set exrc
-
-" When on, ':autocmd', shell and write commands are not allowed in '.vimrc' and
-" '.exrc' in the current directory
-" <http://vimdoc.sourceforge.net/htmldoc/options.html#'secure'>
-set secure
-
-" store the swap files elsewhere
-" http://stackoverflow.com/questions/4331776/change-vim-swap-backup-undo-file-name
-set dir=/tmp//,.
-
-" automatically change working directory
-" http://vim.wikia.com/wiki/Set_working_directory_to_the_current_file
-autocmd BufEnter * silent! lcd %:p:h
-
-
-"
-" Advanced Scripts & Plugin settings
-"
-
-" set proper shell
-" https://github.com/vim-ruby/vim-ruby/issues/166
-set shell=/bin/bash
-
-" for leader key
-" "http://stackoverflow.com/questions/1764263/what-is-the-leader-in-a-vimrc-file/8160809#8160809
-set showcmd
-
-" Highlight space character
-:au InsertEnter * match Todo /\s\+\%#\@<!$/
-:au InsertLeave * match Todo /\s\+$/
-
-" automatically close autocomplete pane
-" http://stackoverflow.com/questions/3105307/how-do-you-automatically-remove-the-preview-window-after-autocompletion-in-vim/3107159#3107159
-autocmd CursorMovedI * if pumvisible() == 0|silent! pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|silent! pclose|endif
-
-" File type specific settings
-" <http://superuser.com/questions/177837/different-vim-indentation-settings-for-specific-file-type>
-if has("autocmd")
-    " auto trim trailing whitespace
-    " <http://vim.wikia.com/wiki/Remove_unwanted_spaces>
-    autocmd BufWritePre * :%s/\s\s\+$//e
-
-    augroup ruby
-        autocmd BufReadPre,FileReadPre *.rb set shiftwidth=2 tabstop=2
-        autocmd BufReadPre,FileReadPre *.feature set shiftwidth=2 tabstop=2
-    augroup END
-
-    augroup python_autopep8
-        "autocmd BufWritePre *.py call Autopep8()
-        nnoremap <leader>f <ESC>:Autopep8<CR><ESC>:Isort<CR>
-        autocmd FileType python let g:autopep8_disable_show_diff=1
-    augroup END
-
-    " Drupal *.module and *.install files.
-    augroup drupal
-        autocmd BufRead,BufNewFile *.module set filetype=php
-        autocmd BufRead,BufNewFile *.install set filetype=php
-        autocmd BufRead,BufNewFile *.test set filetype=php
-
-        autocmd BufRead,BufNewFile *.inc set tabstop=2 shiftwidth=2
-
-        autocmd BufRead,BufNewFile *.install set tabstop=2 shiftwidth=2
-
-        autocmd BufRead,BufNewFile *.module set tabstop=2 shiftwidth=2
-    augroup END
-
-    augroup go
-        autocmd FileType go let g:go_highlight_functions=1
-        autocmd FileType go let g:go_highlight_methods=1
-        autocmd FileType go let g:go_highlight_structs=1
-        autocmd FileType go let g:go_highlight_operators=1
-        autocmd FileType go let g:go_highlight_build_constraints=1
-        autocmd FileType go let g:go_fmt_command="goimports"
-    augroup END
-
-    autocmd FileType json set foldmethod=syntax
-
-    autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-    autocmd FileType python set omnifunc=pythoncomplete#Complete
-    autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-    autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType html,markdown set omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-endif
-
-"
-" latex-suite
-"
-
-" Default flavor for .tex files
-" <http://vim-latex.sourceforge.net/documentation/latex-suite/recommended-settings.html>
-let g:tex_flavor='latex'
-
-" TIP: if you write your \label's as \label{fig:something}, then if you
-" type in \ref{fig: and press <C-n> you will automatically cycle through
-" all the figure labels. Very useful!
-set iskeyword+=:
-
-" remove whitespace
-" <http://vim.wikia.com/wiki/Remove_unwanted_spaces>
-" help 40.2
-nnoremap <leader>ks normal!:%s/\s\+$<CR>
-
-" tabbing
-" new tab page
-nnoremap <leader>t <ESC>:tabnew<CR>
-map <C-Tab> <ESC>:tabnext<CR>
-map <C-S-Tab> <ESC>:tabprevious<CR>
-
-" Flying is faster than cycling.
-" https://plus.google.com/104286962752255423480/posts/bmHQXnKeimj
-nnoremap <leader>l :ls<CR>:b<space>
-
-"
-" CtrlP mappings
-"
-nnoremap <leader>p <ESC>:CtrlPMixed<CR><CR>
-let g:ctrlp_cmd = 'CtrlPMixed'
-
-"
-" Fuzzy Finder mappings
-"
-
-" Open file
-" nnoremap <leader>ff <ESC>:FufFile <C-r>=expand('%:~:.')[:-1-len(expand('%:~:.:t'))]<CR><CR>
-
-" Switch Buffer
-" nnoremap <leader>fb <ESC>:FufBuffer <C-r>=expand('%:~:.')[:-1-len(expand('%:~:.:t'))]<CR><CR>
-
-"
-" Supertab
-"
-
-" attempting to use the text preceding the cursor to decide which type of
-" completion to attempt
-let g:SuperTabDefaultCompletionType = "context"
-
-" fall back to a secondary default completion
-let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
-
-"
-" VimWiki
-"
-let g:vimwiki_list = [{'path': '~/Documents/Wiki/', 'path_html': '~/Documents/Wiki/html/', 'auto_export': 1}]
-
-"
-" Airline
-"
-set laststatus=2
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-
-"
-" Neocomplete
-"
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#enable_auto_select = 1
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 "
 " Buffer Management
@@ -380,9 +164,60 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 nnoremap <leader>n <ESC>:bnext<CR>
 nnoremap <leader>p <ESC>:bprevious<CR>
 
+" Flying is faster than cycling.
+" https://plus.google.com/104286962752255423480/posts/bmHQXnKeimj
+nnoremap <leader>l :ls<CR>:b<space>
+
+" remove whitespace
+" <http://vim.wikia.com/wiki/Remove_unwanted_spaces>
+" help 40.2
+nnoremap <leader>ks normal!:%s/\s\+$<CR>
+
 "
-" GUI colors
+" enter in normal mode
 "
-let &t_8f="\e[38;2;%lu;%lu;%lum"
-let &t_8b="\e[48;2;%lu;%lu;%lum"
-set guicolors
+nnoremap m i<CR><ESC>
+nnoremap M a<CR><ESC>
+nnoremap <SPACE> i<SPACE><ESC>l
+nnoremap <TAB> >>
+nnoremap <S-TAB> <<
+
+
+"
+" Plugin Settings
+"
+
+"
+" Airline
+"
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+set laststatus=2
+
+"
+" Neocomplete
+"
+let g:acp_enableAtStartup = 0
+let g:neocomplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" automatically close autocomplete pane
+" http://stackoverflow.com/questions/3105307/how-do-you-automatically-remove-the-preview-window-after-autocompletion-in-vim/3107159#3107159
+autocmd CursorMovedI * if pumvisible() == 0|silent! pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|silent! pclose|endif
+autocmd CompleteDone * pclose " To close preview window of deoplete automagically
+
+"
+" Python support
+"
+if has("macunix")
+    let g:python3_host_prog = '/Users/jeffrey04/.local/bin/python3'
+    let g:python_host_prog = '/Users/jeffrey04/.local/bin/python'
+endif
+
+"
+" Rainbow Parenthesis
+"
+let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
+autocmd VimEnter * RainbowParentheses
