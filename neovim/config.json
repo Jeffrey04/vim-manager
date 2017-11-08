@@ -11,23 +11,29 @@
         "plugin-css-color": "git://github.com/ap/vim-css-color.git",
         "plugin-delimitmate": "git://github.com/Raimondi/delimitMate.git",
         "plugin-deoplete": "git://github.com/Shougo/deoplete.nvim.git",
+        "plugin-deoplete-go": "git://github.com/zchee/deoplete-go.git",
         "plugin-deoplete-jedi": "git://github.com/zchee/deoplete-jedi.git",
         "plugin-fugitive": "git://github.com/tpope/vim-fugitive.git",
         "plugin-golang": "git://github.com/fatih/vim-go.git",
         "plugin-golden-ratio": "git://github.com/roman/golden-ratio.git",
+        "plugin-javascript": "git://github.com/pangloss/vim-javascript.git",
         "plugin-rainbow-csv": "git://github.com/vim-scripts/rainbow_csv.vim.git",
         "plugin-rainbow-paren": "git://github.com/junegunn/rainbow_parentheses.vim.git",
+        "plugin-rust": "git://github.com/rust-lang/rust.vim.git",
+        "plugin-vawa": "ssh://hg@bitbucket.org/sras/vawa",
         "plugin-vimcompletesme": "git://github.com/ajh17/VimCompletesMe.git",
         "plugin-vinegar": "git://github.com/tpope/vim-vinegar.git",
         "syntax-css": "git://github.com/hail2u/vim-css3-syntax.git",
         "syntax-dockerfile": "git://github.com/ekalinin/Dockerfile.vim.git",
         "syntax-html5": "git://github.com/othree/html5.vim.git",
         "syntax-javascript-libraries": "git://github.com/othree/javascript-libraries-syntax.vim.git",
-        "syntax-javascript": "git://github.com/jelera/vim-javascript-syntax.git",
         "syntax-php": "git://github.com/StanAngeloff/php.vim.git",
+        "theme-broduo": "git://github.com/broduo/broduo-color-scheme.git",
+        "theme-buddy": "git://github.com/DrSpatula/vim-buddy.git",
         "theme-vividchalk": "git://github.com/tpope/vim-vividchalk.git",
         "theme-base16": "git://github.com/chriskempson/base16-vim.git"
     },
     "backups": {
+        "syntax-javascript": "git://github.com/jelera/vim-javascript-syntax.git"
     }
 }
