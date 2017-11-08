@@ -28,6 +28,7 @@ endif
 " Load color scheme
 " <http://vimdoc.sourceforge.net/htmldoc/syntax.html#:colorscheme>
 colorscheme base16-atelierforest
+let g:vawahl="ctermbg=black ctermfg=red guifg=#f22c40 gui=bold"
 
 " switch syntax highlighting on
 " <http://vimdoc.sourceforge.net/htmldoc/options.html#'syntax'>

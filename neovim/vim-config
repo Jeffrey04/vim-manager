@@ -20,10 +20,6 @@ Helptags
 " Enable true-color support
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
-" Enable pipe in insert mode
-" <https://github.com/neovim/neovim/wiki/FAQ#how-can-i-change-the-cursor-shape-in-the-terminal>
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-
 " GUI font
 " <http://vimdoc.sourceforge.net/htmldoc/options.html#'guifont'>
 if has("gui_macvim")
@@ -37,7 +33,9 @@ endif
 
 " Load color scheme
 " <http://vimdoc.sourceforge.net/htmldoc/syntax.html#:colorscheme>
-colorscheme base16-summerfruit-dark
+colorscheme base16-atelier-forest
+let g:vawahl="ctermbg=black ctermfg=blue guifg=#f22c40 guibg=#000000 gui=bold"
+
 
 " switch syntax highlighting on
 " <http://vimdoc.sourceforge.net/htmldoc/options.html#'syntax'>
@@ -204,7 +202,7 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 set laststatus=2
 
-let g:airline_theme='murmur'
+let g:airline_theme='base16'
 
 "
 " Deoplete
@@ -223,8 +221,8 @@ autocmd CompleteDone * pclose " To close preview window of deoplete automagicall
 " Python support
 "
 if has("macunix")
-    let g:python3_host_prog = '/Users/jeffrey04/.local/bin/python3'
-    let g:python_host_prog = '/Users/jeffrey04/.local/bin/python'
+    let g:python3_host_prog = '/usr/local/bin/python3'
+    let g:python_host_prog = '/usr/local/bin/python2'
 endif
 
 "
