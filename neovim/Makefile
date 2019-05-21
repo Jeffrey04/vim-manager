@@ -1,4 +1,4 @@
-all: bootstrap indent-php-install indent-python-install omnicomplete-php-install omnicomplete-css-install plugin-airline-install plugin-airline-themes-install plugin-css-color-install plugin-delimitmate-install plugin-deoplete-install plugin-deoplete-jedi-install plugin-fugitive-install plugin-golden-ratio-install plugin-rainbow-csv-install plugin-rainbow-paren-install plugin-vimcompletesme-install plugin-vinegar-install syntax-css-install syntax-dockerfile-install syntax-html5-install syntax-javascript-libraries-install syntax-javascript-install syntax-php-install theme-vividchalk-install theme-base16-install
+all: bootstrap indent-php-install indent-python-install omnicomplete-php-install omnicomplete-css-install plugin-airline-install plugin-airline-themes-install plugin-css-color-install plugin-delimitmate-install plugin-deoplete-install plugin-deoplete-go-install plugin-deoplete-jedi-install plugin-editorconfig-install plugin-fugitive-install plugin-golang-install plugin-golden-ratio-install plugin-gui-shim-install plugin-javascript-install plugin-rainbow-csv-install plugin-rainbow-paren-install plugin-rust-install plugin-vawa-install plugin-vimcompletesme-install plugin-vinegar-install syntax-css-install syntax-dockerfile-install syntax-html5-install syntax-javascript-libraries-install syntax-php-install theme-broduo-install theme-buddy-install theme-vividchalk-install theme-base16-install
 	@echo BEGIN | sed 's/.*/all: &/'
 	@echo END | sed 's/.*/all: &/'
 
@@ -6,7 +6,7 @@ bootstrap: pathogen-install .vimrc
 	@echo BEGIN | sed 's/.*/bootstrap: &/'
 	@echo END | sed 's/.*/bootstrap: &/'
 
-pathogen-clean: indent-php-clean indent-python-clean omnicomplete-php-clean omnicomplete-css-clean plugin-airline-clean plugin-airline-themes-clean plugin-css-color-clean plugin-delimitmate-clean plugin-deoplete-clean plugin-deoplete-jedi-clean plugin-fugitive-clean plugin-golden-ratio-clean plugin-rainbow-csv-clean plugin-rainbow-paren-clean plugin-vimcompletesme-clean plugin-vinegar-clean syntax-css-clean syntax-dockerfile-clean syntax-html5-clean syntax-javascript-libraries-clean syntax-javascript-clean syntax-php-clean theme-vividchalk-clean theme-base16-clean
+pathogen-clean: indent-php-clean indent-python-clean omnicomplete-php-clean omnicomplete-css-clean plugin-airline-clean plugin-airline-themes-clean plugin-css-color-clean plugin-delimitmate-clean plugin-deoplete-clean plugin-deoplete-go-clean plugin-deoplete-jedi-clean plugin-editorconfig-clean plugin-fugitive-clean plugin-golang-clean plugin-golden-ratio-clean plugin-gui-shim-clean plugin-javascript-clean plugin-rainbow-csv-clean plugin-rainbow-paren-clean plugin-rust-clean plugin-vawa-clean plugin-vimcompletesme-clean plugin-vinegar-clean syntax-css-clean syntax-dockerfile-clean syntax-html5-clean syntax-javascript-libraries-clean syntax-php-clean theme-broduo-clean theme-buddy-clean theme-vividchalk-clean theme-base16-clean
 	@echo BEGIN | sed 's/.*/pathogen-clean: &/'
 	@if [ -d /Users/jeffrey04/.config/nvim/.hg ]; then hg update -y null -R /Users/jeffrey04/.config/nvim && rm -rf /Users/jeffrey04/.config/nvim/.hg; fi | sed 's/.*/pathogen-clean: &/'
 	@rm -rf /Users/jeffrey04/.config/nvim/bundle | sed 's/.*/pathogen-clean: &/'
@@ -158,6 +158,21 @@ plugin-deoplete-update:
 	@hg pull -y -u -R /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/plugin-deoplete | sed 's/.*/plugin-deoplete-update: &/'
 	@echo END | sed 's/.*/plugin-deoplete-update: &/'
 
+plugin-deoplete-go-clean: 
+	@echo BEGIN | sed 's/.*/plugin-deoplete-go-clean: &/'
+	@rm -rf /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/plugin-deoplete-go | sed 's/.*/plugin-deoplete-go-clean: &/'
+	@echo END | sed 's/.*/plugin-deoplete-go-clean: &/'
+
+plugin-deoplete-go-install: plugin-deoplete-go-clean
+	@echo BEGIN | sed 's/.*/plugin-deoplete-go-install: &/'
+	@hg clone -y git://github.com/zchee/deoplete-go.git /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/plugin-deoplete-go | sed 's/.*/plugin-deoplete-go-install: &/'
+	@echo END | sed 's/.*/plugin-deoplete-go-install: &/'
+
+plugin-deoplete-go-update: 
+	@echo BEGIN | sed 's/.*/plugin-deoplete-go-update: &/'
+	@hg pull -y -u -R /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/plugin-deoplete-go | sed 's/.*/plugin-deoplete-go-update: &/'
+	@echo END | sed 's/.*/plugin-deoplete-go-update: &/'
+
 plugin-deoplete-jedi-clean: 
 	@echo BEGIN | sed 's/.*/plugin-deoplete-jedi-clean: &/'
 	@rm -rf /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/plugin-deoplete-jedi | sed 's/.*/plugin-deoplete-jedi-clean: &/'
@@ -172,6 +187,21 @@ plugin-deoplete-jedi-update:
 	@echo BEGIN | sed 's/.*/plugin-deoplete-jedi-update: &/'
 	@hg pull -y -u -R /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/plugin-deoplete-jedi | sed 's/.*/plugin-deoplete-jedi-update: &/'
 	@echo END | sed 's/.*/plugin-deoplete-jedi-update: &/'
+
+plugin-editorconfig-clean: 
+	@echo BEGIN | sed 's/.*/plugin-editorconfig-clean: &/'
+	@rm -rf /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/plugin-editorconfig | sed 's/.*/plugin-editorconfig-clean: &/'
+	@echo END | sed 's/.*/plugin-editorconfig-clean: &/'
+
+plugin-editorconfig-install: plugin-editorconfig-clean
+	@echo BEGIN | sed 's/.*/plugin-editorconfig-install: &/'
+	@hg clone -y git://github.com/editorconfig/editorconfig-vim.git /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/plugin-editorconfig | sed 's/.*/plugin-editorconfig-install: &/'
+	@echo END | sed 's/.*/plugin-editorconfig-install: &/'
+
+plugin-editorconfig-update: 
+	@echo BEGIN | sed 's/.*/plugin-editorconfig-update: &/'
+	@hg pull -y -u -R /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/plugin-editorconfig | sed 's/.*/plugin-editorconfig-update: &/'
+	@echo END | sed 's/.*/plugin-editorconfig-update: &/'
 
 plugin-fugitive-clean: 
 	@echo BEGIN | sed 's/.*/plugin-fugitive-clean: &/'
@@ -188,6 +218,21 @@ plugin-fugitive-update:
 	@hg pull -y -u -R /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/plugin-fugitive | sed 's/.*/plugin-fugitive-update: &/'
 	@echo END | sed 's/.*/plugin-fugitive-update: &/'
 
+plugin-golang-clean: 
+	@echo BEGIN | sed 's/.*/plugin-golang-clean: &/'
+	@rm -rf /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/plugin-golang | sed 's/.*/plugin-golang-clean: &/'
+	@echo END | sed 's/.*/plugin-golang-clean: &/'
+
+plugin-golang-install: plugin-golang-clean
+	@echo BEGIN | sed 's/.*/plugin-golang-install: &/'
+	@hg clone -y git://github.com/fatih/vim-go.git /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/plugin-golang | sed 's/.*/plugin-golang-install: &/'
+	@echo END | sed 's/.*/plugin-golang-install: &/'
+
+plugin-golang-update: 
+	@echo BEGIN | sed 's/.*/plugin-golang-update: &/'
+	@hg pull -y -u -R /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/plugin-golang | sed 's/.*/plugin-golang-update: &/'
+	@echo END | sed 's/.*/plugin-golang-update: &/'
+
 plugin-golden-ratio-clean: 
 	@echo BEGIN | sed 's/.*/plugin-golden-ratio-clean: &/'
 	@rm -rf /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/plugin-golden-ratio | sed 's/.*/plugin-golden-ratio-clean: &/'
@@ -202,6 +247,36 @@ plugin-golden-ratio-update:
 	@echo BEGIN | sed 's/.*/plugin-golden-ratio-update: &/'
 	@hg pull -y -u -R /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/plugin-golden-ratio | sed 's/.*/plugin-golden-ratio-update: &/'
 	@echo END | sed 's/.*/plugin-golden-ratio-update: &/'
+
+plugin-gui-shim-clean: 
+	@echo BEGIN | sed 's/.*/plugin-gui-shim-clean: &/'
+	@rm -rf /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/plugin-gui-shim | sed 's/.*/plugin-gui-shim-clean: &/'
+	@echo END | sed 's/.*/plugin-gui-shim-clean: &/'
+
+plugin-gui-shim-install: plugin-gui-shim-clean
+	@echo BEGIN | sed 's/.*/plugin-gui-shim-install: &/'
+	@hg clone -y git://github.com/equalsraf/neovim-gui-shim.git /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/plugin-gui-shim | sed 's/.*/plugin-gui-shim-install: &/'
+	@echo END | sed 's/.*/plugin-gui-shim-install: &/'
+
+plugin-gui-shim-update: 
+	@echo BEGIN | sed 's/.*/plugin-gui-shim-update: &/'
+	@hg pull -y -u -R /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/plugin-gui-shim | sed 's/.*/plugin-gui-shim-update: &/'
+	@echo END | sed 's/.*/plugin-gui-shim-update: &/'
+
+plugin-javascript-clean: 
+	@echo BEGIN | sed 's/.*/plugin-javascript-clean: &/'
+	@rm -rf /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/plugin-javascript | sed 's/.*/plugin-javascript-clean: &/'
+	@echo END | sed 's/.*/plugin-javascript-clean: &/'
+
+plugin-javascript-install: plugin-javascript-clean
+	@echo BEGIN | sed 's/.*/plugin-javascript-install: &/'
+	@hg clone -y git://github.com/pangloss/vim-javascript.git /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/plugin-javascript | sed 's/.*/plugin-javascript-install: &/'
+	@echo END | sed 's/.*/plugin-javascript-install: &/'
+
+plugin-javascript-update: 
+	@echo BEGIN | sed 's/.*/plugin-javascript-update: &/'
+	@hg pull -y -u -R /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/plugin-javascript | sed 's/.*/plugin-javascript-update: &/'
+	@echo END | sed 's/.*/plugin-javascript-update: &/'
 
 plugin-rainbow-csv-clean: 
 	@echo BEGIN | sed 's/.*/plugin-rainbow-csv-clean: &/'
@@ -232,6 +307,36 @@ plugin-rainbow-paren-update:
 	@echo BEGIN | sed 's/.*/plugin-rainbow-paren-update: &/'
 	@hg pull -y -u -R /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/plugin-rainbow-paren | sed 's/.*/plugin-rainbow-paren-update: &/'
 	@echo END | sed 's/.*/plugin-rainbow-paren-update: &/'
+
+plugin-rust-clean: 
+	@echo BEGIN | sed 's/.*/plugin-rust-clean: &/'
+	@rm -rf /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/plugin-rust | sed 's/.*/plugin-rust-clean: &/'
+	@echo END | sed 's/.*/plugin-rust-clean: &/'
+
+plugin-rust-install: plugin-rust-clean
+	@echo BEGIN | sed 's/.*/plugin-rust-install: &/'
+	@hg clone -y git://github.com/rust-lang/rust.vim.git /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/plugin-rust | sed 's/.*/plugin-rust-install: &/'
+	@echo END | sed 's/.*/plugin-rust-install: &/'
+
+plugin-rust-update: 
+	@echo BEGIN | sed 's/.*/plugin-rust-update: &/'
+	@hg pull -y -u -R /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/plugin-rust | sed 's/.*/plugin-rust-update: &/'
+	@echo END | sed 's/.*/plugin-rust-update: &/'
+
+plugin-vawa-clean: 
+	@echo BEGIN | sed 's/.*/plugin-vawa-clean: &/'
+	@rm -rf /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/plugin-vawa | sed 's/.*/plugin-vawa-clean: &/'
+	@echo END | sed 's/.*/plugin-vawa-clean: &/'
+
+plugin-vawa-install: plugin-vawa-clean
+	@echo BEGIN | sed 's/.*/plugin-vawa-install: &/'
+	@hg clone -y ssh://hg@bitbucket.org/sras/vawa /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/plugin-vawa | sed 's/.*/plugin-vawa-install: &/'
+	@echo END | sed 's/.*/plugin-vawa-install: &/'
+
+plugin-vawa-update: 
+	@echo BEGIN | sed 's/.*/plugin-vawa-update: &/'
+	@hg pull -y -u -R /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/plugin-vawa | sed 's/.*/plugin-vawa-update: &/'
+	@echo END | sed 's/.*/plugin-vawa-update: &/'
 
 plugin-vimcompletesme-clean: 
 	@echo BEGIN | sed 's/.*/plugin-vimcompletesme-clean: &/'
@@ -323,21 +428,6 @@ syntax-javascript-libraries-update:
 	@hg pull -y -u -R /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/syntax-javascript-libraries | sed 's/.*/syntax-javascript-libraries-update: &/'
 	@echo END | sed 's/.*/syntax-javascript-libraries-update: &/'
 
-syntax-javascript-clean: 
-	@echo BEGIN | sed 's/.*/syntax-javascript-clean: &/'
-	@rm -rf /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/syntax-javascript | sed 's/.*/syntax-javascript-clean: &/'
-	@echo END | sed 's/.*/syntax-javascript-clean: &/'
-
-syntax-javascript-install: syntax-javascript-clean
-	@echo BEGIN | sed 's/.*/syntax-javascript-install: &/'
-	@hg clone -y git://github.com/jelera/vim-javascript-syntax.git /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/syntax-javascript | sed 's/.*/syntax-javascript-install: &/'
-	@echo END | sed 's/.*/syntax-javascript-install: &/'
-
-syntax-javascript-update: 
-	@echo BEGIN | sed 's/.*/syntax-javascript-update: &/'
-	@hg pull -y -u -R /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/syntax-javascript | sed 's/.*/syntax-javascript-update: &/'
-	@echo END | sed 's/.*/syntax-javascript-update: &/'
-
 syntax-php-clean: 
 	@echo BEGIN | sed 's/.*/syntax-php-clean: &/'
 	@rm -rf /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/syntax-php | sed 's/.*/syntax-php-clean: &/'
@@ -352,6 +442,36 @@ syntax-php-update:
 	@echo BEGIN | sed 's/.*/syntax-php-update: &/'
 	@hg pull -y -u -R /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/syntax-php | sed 's/.*/syntax-php-update: &/'
 	@echo END | sed 's/.*/syntax-php-update: &/'
+
+theme-broduo-clean: 
+	@echo BEGIN | sed 's/.*/theme-broduo-clean: &/'
+	@rm -rf /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/theme-broduo | sed 's/.*/theme-broduo-clean: &/'
+	@echo END | sed 's/.*/theme-broduo-clean: &/'
+
+theme-broduo-install: theme-broduo-clean
+	@echo BEGIN | sed 's/.*/theme-broduo-install: &/'
+	@hg clone -y git://github.com/broduo/broduo-color-scheme.git /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/theme-broduo | sed 's/.*/theme-broduo-install: &/'
+	@echo END | sed 's/.*/theme-broduo-install: &/'
+
+theme-broduo-update: 
+	@echo BEGIN | sed 's/.*/theme-broduo-update: &/'
+	@hg pull -y -u -R /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/theme-broduo | sed 's/.*/theme-broduo-update: &/'
+	@echo END | sed 's/.*/theme-broduo-update: &/'
+
+theme-buddy-clean: 
+	@echo BEGIN | sed 's/.*/theme-buddy-clean: &/'
+	@rm -rf /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/theme-buddy | sed 's/.*/theme-buddy-clean: &/'
+	@echo END | sed 's/.*/theme-buddy-clean: &/'
+
+theme-buddy-install: theme-buddy-clean
+	@echo BEGIN | sed 's/.*/theme-buddy-install: &/'
+	@hg clone -y git://github.com/DrSpatula/vim-buddy.git /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/theme-buddy | sed 's/.*/theme-buddy-install: &/'
+	@echo END | sed 's/.*/theme-buddy-install: &/'
+
+theme-buddy-update: 
+	@echo BEGIN | sed 's/.*/theme-buddy-update: &/'
+	@hg pull -y -u -R /Users/jeffrey04/Projects/vim-manager/neovim/default-bundles/theme-buddy | sed 's/.*/theme-buddy-update: &/'
+	@echo END | sed 's/.*/theme-buddy-update: &/'
 
 theme-vividchalk-clean: 
 	@echo BEGIN | sed 's/.*/theme-vividchalk-clean: &/'
@@ -397,7 +517,7 @@ clean-vimrc:
 	@rm -rf /Users/jeffrey04/.config/nvim/init.vim | sed 's/.*/clean-vimrc: &/'
 	@echo END | sed 's/.*/clean-vimrc: &/'
 
-update: pathogen-update indent-php-update indent-python-update omnicomplete-php-update omnicomplete-css-update plugin-airline-update plugin-airline-themes-update plugin-css-color-update plugin-delimitmate-update plugin-deoplete-update plugin-deoplete-jedi-update plugin-fugitive-update plugin-golden-ratio-update plugin-rainbow-csv-update plugin-rainbow-paren-update plugin-vimcompletesme-update plugin-vinegar-update syntax-css-update syntax-dockerfile-update syntax-html5-update syntax-javascript-libraries-update syntax-javascript-update syntax-php-update theme-vividchalk-update theme-base16-update
+update: pathogen-update indent-php-update indent-python-update omnicomplete-php-update omnicomplete-css-update plugin-airline-update plugin-airline-themes-update plugin-css-color-update plugin-delimitmate-update plugin-deoplete-update plugin-deoplete-go-update plugin-deoplete-jedi-update plugin-editorconfig-update plugin-fugitive-update plugin-golang-update plugin-golden-ratio-update plugin-gui-shim-update plugin-javascript-update plugin-rainbow-csv-update plugin-rainbow-paren-update plugin-rust-update plugin-vawa-update plugin-vimcompletesme-update plugin-vinegar-update syntax-css-update syntax-dockerfile-update syntax-html5-update syntax-javascript-libraries-update syntax-php-update theme-broduo-update theme-buddy-update theme-vividchalk-update theme-base16-update
 	@echo BEGIN | sed 's/.*/update: &/'
 	@echo END | sed 's/.*/update: &/'
 
