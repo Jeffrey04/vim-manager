@@ -1,6 +1,14 @@
-"
+""
 " Neo-specific vim options
 "
+
+"
+" Stop sourcing if this is vscode
+" <https://vi.stackexchange.com/a/26376>
+"
+if exists('g:vscode')
+    finish
+endif
 
 
 "
@@ -224,6 +232,10 @@ if has("macunix")
     let g:python3_host_prog = '/usr/local/bin/python3'
     let g:python_host_prog = '/usr/local/bin/python2'
     let g:ruby_host_prog = '/usr/local/opt/ruby/bin/ruby'
+else
+    let g:python3_host_prog = '/home/jeffrey04/.pyenv/versions/3.9-dev/bin/python'
+    let g:python_host_prog = '/home/jeffrey04/.pyenv/versions/2.7.17/bin/python'
+    let g:ruby_host_prog = '/home/jeffrey04/.rbenv/versions/2.7.0-dev/bin/ruby'
 endif
 
 "
@@ -231,3 +243,5 @@ endif
 "
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 autocmd VimEnter * RainbowParentheses
+
+
