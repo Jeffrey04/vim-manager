@@ -2,14 +2,6 @@
 " Neo-specific vim options
 "
 
-"
-" Stop sourcing if this is vscode
-" <https://vi.stackexchange.com/a/26376>
-"
-if exists('g:vscode')
-    finish
-endif
-
 
 "
 " Startup Options
@@ -17,8 +9,10 @@ endif
 
 " Call Pathogen
 " <https://github.com/tpope/vim-pathogen>
-execute pathogen#infect()
-Helptags
+if !exists('g:vscode')
+    execute pathogen#infect()
+    Helptags
+endif
 
 
 "
@@ -168,6 +162,15 @@ filetype plugin on
 
 " when a file is edited its indent file is loaded
 filetype plugin indent on
+
+
+"
+" Stop sourcing if this is vscode
+" <https://vi.stackexchange.com/a/26376>
+"
+if exists('g:vscode')
+    finish
+endif
 
 
 "
