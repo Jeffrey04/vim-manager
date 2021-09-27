@@ -36,6 +36,7 @@ endif
 " Load color scheme
 " <http://vimdoc.sourceforge.net/htmldoc/syntax.html#:colorscheme>
 colorscheme base16-seti
+au ColorScheme * hi Normal ctermbg=none guibg=none
 let g:vawahl="ctermbg=black ctermfg=blue guifg=#f22c40 guibg=#000000 gui=bold"
 
 
@@ -249,4 +250,7 @@ endif
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 autocmd VimEnter * RainbowParentheses
 
-
+"
+" Mouse support
+"
+set mouse=a
