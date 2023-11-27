@@ -35,7 +35,9 @@ endif
 
 " Load color scheme
 " <http://vimdoc.sourceforge.net/htmldoc/syntax.html#:colorscheme>
-colorscheme base16-seti
+if !exists('g:vscode')
+    colorscheme base16-seti
+endif
 au ColorScheme * hi Normal ctermbg=none guibg=none
 let g:vawahl="ctermbg=black ctermfg=blue guifg=#f22c40 guibg=#000000 gui=bold"
 
@@ -235,13 +237,15 @@ autocmd CompleteDone * pclose " To close preview window of deoplete automagicall
 " Python support
 "
 if has("macunix")
+    let g:loaded_perl_provider = 0
     let g:python3_host_prog = '/usr/local/bin/python3'
     let g:python_host_prog = '/usr/local/bin/python2'
     let g:ruby_host_prog = '/usr/local/opt/ruby/bin/ruby'
 else
-    let g:python3_host_prog = '/home/jeffrey04/.pyenv/versions/3.9-dev/bin/python'
-    let g:python_host_prog = '/home/jeffrey04/.pyenv/versions/2.7.17/bin/python'
-    let g:ruby_host_prog = '/home/jeffrey04/.rbenv/versions/2.7.0-dev/bin/ruby'
+    let g:loaded_perl_provider = 0
+    let g:python3_host_prog = '/home/jeffrey04/.config/nvim/.venv/bin/python'
+    let g:ruby_host_prog = '/home/jeffrey04/.rbenv/versions/3.2.2/bin/neovim-ruby-host'
+    let g:node_host_prog = '/home/jeffrey04/.nvm/versions/node/v20.10.0/bin/neovim-node-host'
 endif
 
 "
