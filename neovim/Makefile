@@ -2,7 +2,7 @@ all: bootstrap indent-php-install indent-python-install omnicomplete-php-install
 	@echo BEGIN | sed 's/.*/all: &/'
 	@echo END | sed 's/.*/all: &/'
 
-bootstrap: pathogen-install .vimrc
+bootstrap: pathogen-install .vimrc Makefile
 	@echo BEGIN | sed 's/.*/bootstrap: &/'
 	@echo END | sed 's/.*/bootstrap: &/'
 
@@ -502,7 +502,7 @@ theme-base16-update:
 	@git pull /home/jeffrey04/Projects/vim-manager/neovim/default-bundles/theme-base16 | sed 's/.*/theme-base16-update: &/'
 	@echo END | sed 's/.*/theme-base16-update: &/'
 
-clean: pathogen-clean clean-vim clean-vimrc
+clean: pathogen-clean clean-vim clean-vimrc clean-Makefile
 	@echo BEGIN | sed 's/.*/clean: &/'
 	@echo END | sed 's/.*/clean: &/'
 
@@ -516,9 +516,19 @@ clean-vimrc:
 	@rm -rf /home/jeffrey04/.config/nvim/init.vim | sed 's/.*/clean-vimrc: &/'
 	@echo END | sed 's/.*/clean-vimrc: &/'
 
+clean-Makefile: 
+	@echo BEGIN | sed 's/.*/clean-Makefile: &/'
+	@rm -rf /home/jeffrey04/.config/nvim/Makefile | sed 's/.*/clean-Makefile: &/'
+	@echo END | sed 's/.*/clean-Makefile: &/'
+
 update: pathogen-update indent-php-update indent-python-update omnicomplete-php-update omnicomplete-css-update plugin-airline-update plugin-airline-themes-update plugin-css-color-update plugin-delimitmate-update plugin-deoplete-update plugin-deoplete-go-update plugin-deoplete-jedi-update plugin-editorconfig-update plugin-fugitive-update plugin-golang-update plugin-golden-ratio-update plugin-gui-shim-update plugin-javascript-update plugin-rainbow-csv-update plugin-rainbow-paren-update plugin-rust-update plugin-vawa-update plugin-vimcompletesme-update plugin-vinegar-update syntax-css-update syntax-dockerfile-update syntax-html5-update syntax-javascript-libraries-update syntax-php-update theme-broduo-update theme-buddy-update theme-vividchalk-update theme-base16-update
 	@echo BEGIN | sed 's/.*/update: &/'
 	@echo END | sed 's/.*/update: &/'
+
+Makefile:
+	@echo BEGIN | sed 's/.*/.vimrc: &/'
+	@ln -s /home/jeffrey04/Projects/vim-manager/neovim/Makefile.setup /home/jeffrey04/.config/nvim/Makefile | sed 's/.*/.vimrc: &/'
+	@echo END | sed 's/.*/.vimrc: &/'
 
 .vim: 
 	@echo BEGIN | sed 's/.*/.vim: &/'
