@@ -2,7 +2,7 @@
 
 all:
 	poetry install && \
-		nvm exec yarn install && \
+		bash -c 'source ~/.devrc && nvm exec yarn install' && \
 		bundle install && bundle binstubs --force --standalone neovim
 
 setup:
@@ -10,9 +10,10 @@ setup:
 		poetry init --name=nvim --python=^3.11 --no-interaction && \
 		poetry config --local virtualenvs.in-project true && \
 		poetry add pynvim && \
-		echo v20.10.0 > .nvimrc && \
-		nvm use && \
+		echo v20.10.0 > .nvmrc && \
+		bash -c 'source ~/.devrc && nvm use' && \
 		corepack enable && \
+		echo "nodeLinker: node-modules" > .yarnrc.yml && \
 		yarn install && \
 		yarn add neovim && \
 		rbenv local 3.2.2 && \
