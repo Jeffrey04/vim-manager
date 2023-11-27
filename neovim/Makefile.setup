@@ -11,8 +11,10 @@ setup:
 		poetry config --local virtualenvs.in-project true && \
 		poetry add pynvim && \
 		echo v20.10.0 > .nvimrc && \
+		nvm use && \
 		corepack enable && \
 		yarn install && \
 		yarn add neovim && \
+		rbenv local 3.2.2 && \
 		bundle init && \
 		bundle add neovim
